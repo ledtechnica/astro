@@ -1,0 +1,31 @@
+---
+title: "AWS IAM Policy Simulator"
+pubDate: "2013-11-01T14:56:00.000Z"
+tags: ["aws", "security", "cloud"]
+mediumId: "e38af9fa4427"
+mediumUrl: "https://medium.com/@ledtechnica/aws-iam-policy-simulator-e38af9fa4427"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+import YouTube from "~/components/YouTube.astro";
+
+* * *
+
+<Figure src="/posts/aws-iam-policy-simulator/1*AD9ZSLXKAhZ-_WomszsmPg.png" />
+
+I am really excited about this [news](http://aws.typepad.com/aws/2013/10/aws-identity-and-access-management-policy-simulator.html "AWS IAM Policy Simulator") from Amazon announcing that they have released the **AWS Identity and Access Management policy simulator**. In case you have no idea what I am talking about, [AWS Identity and Access Management](http://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_Introduction.html "What is AWS Identity and Access Management?") (IAM) is “_a web service that enables Amazon Web Services (AWS) customers to manage users and user permissions in AWS. The service is targeted at organizations with multiple users or systems that use AWS products such as Amazon EC2, Amazon RDS, and the AWS Management Console. With IAM, you can centrally manage users, security credentials such as access keys, and permissions that control which AWS resources users can access.”_
+
+While I have been using IAM for managing basic access control to AWS resources from some of our web applications — and hence our policies are usually not that complicated or crazy — the new AWS IAM Policy Simulator should be a great resources for more advanced users — such as those using AWS IAM Federation, etc.
+
+#### AWS IAM Policy Simulator Rocks
+
+The tool basically helps admins simulate the effects of policies either by users and groups by running policies against the appropriate AWS resource you are testing. You select a user or a group and the AWS resource you would like to validate the assigned policies against. The policy simulator also allows to either select all possible actions for that AWS resource or specific ones you would like to target. Once the simulation is complete, the tool let’s you know due to which policy access to a certain action was allowed or denied, which I found to be very useful (which also includes the default AWS policies).
+
+<YouTube id="1IIhVcXhvcE" />
+
+Before this tool, I had to change a policy on AWS and then test access (in some cases manually) from our staging server to ensure that the assigned IAM user could access the resources properly. This of course got complicated when there were different levels of access to AWS resources. With the new AWS IAM Policy Simulator, I can ensure that the identity I am working with has the proper access rights and restrictions and do not need to worry about an additional testing from our staging servers. This is especially useful when providing different levels of access to different users on the same S3 bucket. The IAM Policy Simulator lets you test this by allowing you to adjust the simulation settings. As shown below, you can select specific resources in S3 for example to simulate your policies against.
+
+<Figure src="/posts/aws-iam-policy-simulator/0*USERqqLjbyACpIlc.png" alt="iam_policy_simulator_settings" />
+
+Anyway I am really excited about this and hopefully you will get a chance to test it out for yourself. You can find more info about AWS Identity and Access Management Policy Simulator as well as IAM in more general in [AWS Docs](http://aws.amazon.com/documentation/ "AWS Documentation"). The [AWS IAM Policy Simulator](http://www.youtube.com/watch?v=1IIhVcXhvcE "Short Intro to AWS IAM Policy Simulator") video in this post is from the official YouTube channel of [Amazon Web Services](http://www.youtube.com/user/AmazonWebServices "AWS Official YouTube Channel") where you can find additional useful videos.

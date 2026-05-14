@@ -1,0 +1,32 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About — LED Technica" active="about">
+  <main class="relative z-10 mx-auto max-w-3xl px-6 pt-32 pb-12 lg:px-8">
+    <header class="border-b border-zinc-950/10 pb-8 dark:border-white/10">
+      <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">About</span>
+      <h1 class="mt-3 font-display text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em]">
+        A blog by Miray Kurtay.
+      </h1>
+    </header>
+
+    <article class="prose-led mt-10 text-zinc-700 dark:text-zinc-300">
+      <p>
+        LED Technica is a long-running notebook on cloud computing, infrastructure, and the small
+        tools that make running real systems possible. The earliest posts here date back to 2011 —
+        when "the cloud" meant Heroku and Rails was the dominant way to ship a webapp. The newer
+        posts cover whatever's currently on the bench.
+      </p>
+      <p>
+        I write here when something surprises me, when I want to remember how I solved a problem,
+        or when the same question comes up enough times to deserve a written answer.
+      </p>
+      <h2>Get in touch</h2>
+      <p>
+        The fastest path is to <a href="/subscribe/">subscribe</a> and reply to a post. The source
+        for this site is on <a href="https://github.com/mkurtay/ledtechnica">GitHub</a>.
+      </p>
+    </article>
+  </main>
+</BaseLayout>

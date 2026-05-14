@@ -1,0 +1,41 @@
+---
+title: "Test your website for Responsive Design"
+pubDate: "2014-09-11T02:53:53.000Z"
+tags: ["tools", "design", "web"]
+mediumId: "4db4b4cc1c8c"
+mediumUrl: "https://medium.com/@ledtechnica/test-your-website-for-responsive-design-4db4b4cc1c8c"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+import Pullquote from "~/components/Pullquote.astro";
+
+* * *
+
+<Figure src="/posts/test-your-website-for-responsive-design/1*Eey09RGJvvA22QPjZ_2X-A.png" />
+
+<Pullquote>“[Responsive web design](http://en.wikipedia.org/wiki/Responsive_web_design) is a web design approach aimed at crafting sites to provide an optimal viewing experience — easy reading and navigation with a minimum of resizing, panning, and scrolling — across a wide range of devices (from mobile phones to desktop computer monitors).”</Pullquote>
+
+With the proliferation of mobile devices such as smartphones, tablets, and [phablets](http://en.wikipedia.org/wiki/Phablet), it is becoming increasingly important to develop responsive websites that can handle different screen sizes and orientations. Even on desktops and laptops there also exists many different screen sizes and browsers with varying handling of the CSS and HTML standards.
+
+<Figure src="/posts/test-your-website-for-responsive-design/0*xdHmFyxO6LrO9D3M.png" alt="Webfonts" caption="Source: http://www.mobilestatistics.com" />
+
+The major CSS frameworks, such as [Foundation](http://foundation.zurb.com/) and [Bootstrap](http://getbootstrap.com/), are great starting points for building responsive websites. You still need manual browser testing though to make sure your design works well across major mobile devices and browsers. This becomes more of a problem as some developers only test their sites on browsers and a few mobile devices that are available to them.
+
+Even [Microsoft](http://www.microsoft.com/en-us/default.aspx) that is often criticized for not following web standards is aware of this problem. Hence they created a useful site called [modern.ie](https://modern.ie/en-us) to help developers test their CSS against IE and other browsers. They provide tools ([screenshot tool results for LED Technica](https://modern.ie/en-us/screenshots#http%3A%2F%2Fledtechnica.com)) and reports ([sample report for LED TEchnica](https://moderniepdf.blob.core.windows.net/modernie-pdf/f0654900-88c4-44ff-b6db-5a7fb81a4f98.pdf)) to help web designers and developers detect common compatibility problems and prevent their users from getting the best possible experience on a webpage.
+
+They also offer free trial link to one of the better known browser testing platforms — [BrowserStack](http://www.browserstack.com/). While useful to test a website against various OS/browser combinations, BrowserStack is a paid service after the free trial. With their [lowest plan starting at $39/month](https://www.browserstack.com/pricing), you might want to consider a cheaper option though. One alternative is the [Browser Shots](http://browsershots.org/). It “is a free open-source online web application that provides a convenient way to test a website’s browser compatibility in one place”.
+
+While testing the responsive design for a website a few months ago, I signed up for BrowserStack. After using it for a while the biggest issue I had was that it was very manual. Each time I needed to test, I had to submit a request and wait to get the results as image files. I also needed to submit a separate request for each page I wanted to to test. Granted they have a plan called Live, which would have allowed me to test the site live on various browsers, it seemed like I needed to connect to various virtual machines to do so.
+
+So imagine my excitement when I came across [Responsinator](http://www.responsinator.com/) — a simple yet wonderful service! In their own words “_Responsinator helps website makers quickly get an indication of how their responsive site will look on the most popular devices_.”
+
+<Figure src="/posts/test-your-website-for-responsive-design/0*1LgecZpeCu8yN_M8.png" alt="Responsinator iPhone view" />
+
+You can see a quick demo of me checking an article I recently posted on an iPhone 5 screen below:
+
+For [$60/year](https://www.responsinator.com/signup/), you can even customize the top bar with your company name and colors using a very simple interface, which is great if you like to share your design with your customers and have them test it on various mobile devices.
+
+<Figure src="/posts/test-your-website-for-responsive-design/0*lj5CkeU66qeyd1dZ.png" alt="Customize Responsinator" />
+
+While it is definitely more interactive and faster to get feedback, a big caveat as mentioned in the [Responsinator FAQs](http://www.responsinator.com/faq/) is that “_Responsinator is an emulator. It does not precisely replicate how your site will look on all the displayed devices, for the best testing use real devices_.” So if you are one of those pixel perfectionists Responsinator might not be for you. But if you _just like to get a feel for the site on a mobile emulator_ or _provide your clients with a more engaging way to interact with your design and provide you feedback_, you might want to give it a shot.

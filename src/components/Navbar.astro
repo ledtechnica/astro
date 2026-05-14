@@ -1,0 +1,88 @@
+---
+import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  floating?: boolean;
+  active?: "home" | "archive" | "about" | "subscribe" | "search";
+}
+
+const { floating = false, active } = Astro.props;
+
+const navLinks = [
+  { label: "Latest", href: "/", key: "home" as const },
+  { label: "Archive", href: "/archive/", key: "archive" as const },
+  { label: "About", href: "/about/", key: "about" as const },
+  { label: "Subscribe", href: "/subscribe/", key: "subscribe" as const },
+];
+---
+
+<header
+  data-navbar
+  data-floating={floating ? "true" : "false"}
+  class:list={[
+    "fixed inset-x-0 top-0 z-40 border-b backdrop-blur-md backdrop-saturate-150 transition-transform duration-300 ease-out",
+    "bg-white/75 dark:bg-zinc-950/75",
+    floating
+      ? "-translate-y-full border-transparent data-[pinned=true]:translate-y-0 data-[pinned=true]:border-zinc-950/10 dark:data-[pinned=true]:border-white/10"
+      : "border-zinc-950/10 dark:border-white/10",
+  ]}
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+    <div class="flex items-center gap-8">
+      {floating ? (
+        <a href="/" class="flex items-center gap-2.5">
+          <span data-logo-slot class="block size-[38px] shrink-0"></span>
+          <span class="font-display text-[15px] font-semibold tracking-tight text-zinc-950 dark:text-white">
+            LED Technica
+          </span>
+        </a>
+      ) : (
+        <Logo mode="navbar" />
+      )}
+
+      <nav class="hidden md:block">
+        <ul class="flex items-center gap-1">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "inline-flex rounded-md px-2.5 py-1.5 text-sm/5 font-medium",
+                  active === link.key
+                    ? "text-zinc-950 dark:text-white"
+                    : "text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white",
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="/search/"
+        aria-label="Search"
+        class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+      </a>
+      <a
+        href="/rss.xml"
+        aria-label="RSS feed"
+        class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" class="size-4">
+          <path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"></path>
+        </svg>
+      </a>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>

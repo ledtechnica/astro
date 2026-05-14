@@ -1,0 +1,45 @@
+---
+title: "Rails attr_accessor validations and Devise"
+pubDate: "2014-08-01T20:15:16.000Z"
+tags: ["rails", "ruby", "security"]
+mediumId: "f89869a2c00d"
+mediumUrl: "https://medium.com/@ledtechnica/rails-attr-accessor-validations-and-devise-f89869a2c00d"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/rails-attr-accessor-validations-and-devise/1*fDCDg_-_-xV7Zx6zeLgXMQ.jpeg" />
+
+Recently I was working on a [Ruby on Rails](http://rubyonrails.org/) form to handle user registrations using [Devise](https://github.com/plataformatec/devise). The client wanted me to add a checkbox for the users to confirm their acceptance of the Terms of Service before creating their accounts. Since signing up for an account successfully should only be allowed after the user confirmed their acceptance (at least theoretically), I decided not to add a database field and used attr\_accessor instead.
+
+To ensure that the user checked this field before they can create an account, I also added a [Rails acceptance validator](http://guides.rubyonrails.org/active_record_validations.html#acceptance). So my user model ended up like:
+
+class User \< ActiveRecord::Base  
+   devise :database\_authenticatable, :registerable,  
+  	  :confirmable, :recoverable, :rememberable,  
+  	  :trackable, :validatable
+
+   attr\_accessor :terms\_of\_service  
+   validates :terms\_of\_service, acceptance: true, on: :create
+
+end
+
+This should have worked in theory but I had no such luck. After checking online and confirming my syntax, everything still seemed to be correct.
+
+Luckily I have just added some custom fields to my user model and Devise instructions were still fresh on my head so I remembered that due to strong\_parameters in Rails 4, the attribute was not being passed to the model automatically. This is [explained in further detail](https://github.com/plataformatec/devise#strong-parameters) on Devise repo but basically I had to add the following code to my application\_controller.rb file and voilà, everything started working:
+
+class ApplicationController \< ActionController::Base  
+   before\_action :configure\_permitted\_parameters, if:   
+      :devise\_controller?
+
+   protected
+
+   def configure\_permitted\_parameters  
+      devise\_parameter\_sanitizer.for(:sign\_up) \<\< \[:first\_name,   
+         :last\_name, :terms\_of\_service\]  
+   end
+
+end

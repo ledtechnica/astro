@@ -1,0 +1,167 @@
+---
+import "~/styles/global.css";
+import ThemeScript from "~/components/ThemeScript.astro";
+import Navbar from "~/components/Navbar.astro";
+import Footer from "~/components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  navFloating?: boolean;
+  active?: "home" | "archive" | "about" | "subscribe" | "search";
+  canonical?: string;
+}
+
+const {
+  title,
+  description = "Notes on cloud, infrastructure, and the boring tools behind the scenes.",
+  ogImage = "/favicon.svg",
+  navFloating = false,
+  active,
+  canonical,
+} = Astro.props;
+
+const site = Astro.site;
+const canonicalUrl = canonical ?? (site ? new URL(Astro.url.pathname, site).toString() : Astro.url.pathname);
+const fullOgImage = site && !ogImage.startsWith("http")
+  ? new URL(ogImage, site).toString()
+  : ogImage;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="LED Technica RSS feed" href="/rss.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LED Technica" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <ThemeScript />
+  </head>
+  <body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+    <div class="grain"></div>
+
+    <Navbar floating={navFloating} active={active} />
+
+    <slot />
+
+    <Footer />
+
+    <script>
+      const THEME_KEY = "ledtechnica:theme";
+
+      function applyTheme(mode: string): void {
+        const html = document.documentElement;
+        const isDark =
+          mode === "dark" ||
+          (mode === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        html.classList.toggle("dark", isDark);
+        (html.dataset as DOMStringMap).themeMode = mode;
+        document.querySelectorAll<HTMLElement>("[data-theme-btn]").forEach((b) => {
+          b.dataset.active = String(b.dataset.themeBtn === mode);
+        });
+      }
+
+      function getTheme(): string {
+        return localStorage.getItem(THEME_KEY) || "system";
+      }
+
+      function setTheme(m: string): void {
+        localStorage.setItem(THEME_KEY, m);
+        applyTheme(m);
+      }
+
+      applyTheme(getTheme());
+
+      matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (getTheme() === "system") applyTheme("system");
+      });
+
+      document.querySelectorAll<HTMLElement>("[data-theme-btn]").forEach((b) => {
+        b.addEventListener("click", () => {
+          const mode = b.dataset.themeBtn;
+          if (mode) setTheme(mode);
+        });
+      });
+
+      // ---- Floating logo scroll morph (home only) ----
+      const floater = document.querySelector<HTMLElement>("[data-logo-floater]");
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      const stage = document.querySelector<HTMLElement>("[data-logo-stage]");
+      const slot = document.querySelector<HTMLElement>("[data-logo-slot]");
+
+      if (floater && stage && slot && navbar && navbar.dataset.floating === "true") {
+        const tick = (): void => {
+          const stageRect = stage.getBoundingClientRect();
+          const slotRect = slot.getBoundingClientRect();
+          const startW = 140;
+          const endW = 38;
+          const total = stage.offsetHeight - 80;
+          const progress = Math.max(0, Math.min(1, -stageRect.top / total));
+
+          const w = startW + (endW - startW) * progress;
+          const startX = stageRect.left + stageRect.width / 2;
+          const startY = stageRect.top + stageRect.height / 2;
+          const endX = slotRect.left + slotRect.width / 2;
+          const endY = slotRect.top + slotRect.height / 2;
+          const cx = startX + (endX - startX) * progress;
+          const cy = startY + (endY - startY) * progress;
+
+          floater.style.width = `${w}px`;
+          floater.style.height = `${w}px`;
+          floater.style.marginLeft = `${-w / 2}px`;
+          floater.style.marginTop = `${-w / 2}px`;
+          floater.style.top = `${cy}px`;
+          floater.style.left = `${cx}px`;
+          floater.style.transform = "none";
+
+          if (progress > 0.6) floater.dataset.mode = "pinned";
+          else delete floater.dataset.mode;
+
+          if (progress > 0.5) navbar.dataset.pinned = "true";
+          else delete navbar.dataset.pinned;
+        };
+        tick();
+        window.addEventListener("scroll", tick, { passive: true });
+        window.addEventListener("resize", tick);
+      } else if (navbar && navbar.dataset.floating !== "true") {
+        navbar.dataset.pinned = "true";
+      }
+
+      // ---- TOC scrollspy ----
+      const tocLinks = document.querySelectorAll<HTMLAnchorElement>("[data-toc] a[href^='#']");
+      if (tocLinks.length) {
+        const headings = [...tocLinks]
+          .map((a) => document.getElementById(a.getAttribute("href")!.slice(1)))
+          .filter((h): h is HTMLElement => !!h);
+        const spy = (): void => {
+          let active: HTMLElement | undefined = headings[0];
+          for (const h of headings) {
+            if (h.getBoundingClientRect().top < 140) active = h;
+          }
+          tocLinks.forEach((a) => {
+            const id = a.getAttribute("href")!.slice(1);
+            a.dataset.active = String(id === (active?.id ?? ""));
+          });
+        };
+        spy();
+        window.addEventListener("scroll", spy, { passive: true });
+      }
+    </script>
+  </body>
+</html>

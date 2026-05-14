@@ -1,0 +1,46 @@
+---
+import { colorForTag } from "~/lib/tags";
+
+interface Props {
+  name: string;
+  link?: boolean;
+  size?: "sm" | "md";
+}
+
+const { name, link = true, size = "sm" } = Astro.props;
+const color = colorForTag(name);
+
+const dotClass = {
+  pink: "bg-led-pink shadow-[0_0_6px_#ec4673]",
+  yellow: "bg-led-yellow shadow-[0_0_6px_#f5c542]",
+  cyan: "bg-led-cyan shadow-[0_0_6px_#2dd4d4]",
+}[color];
+
+const paddingClass = size === "sm" ? "px-2 py-0.5 text-[10.5px]" : "px-2.5 py-1 text-[11px]";
+---
+
+{link ? (
+  <a
+    href={`/archive/?tag=${encodeURIComponent(name)}`}
+    class:list={[
+      "inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 font-mono font-medium text-zinc-500",
+      "dark:border-white/10 dark:text-zinc-400",
+      "transition hover:border-zinc-950/20 hover:text-zinc-950 dark:hover:border-white/20 dark:hover:text-white",
+      paddingClass,
+    ]}
+  >
+    <span class:list={["size-1.5 rounded-full", dotClass]}></span>
+    {name}
+  </a>
+) : (
+  <span
+    class:list={[
+      "inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 font-mono font-medium text-zinc-500",
+      "dark:border-white/10 dark:text-zinc-400",
+      paddingClass,
+    ]}
+  >
+    <span class:list={["size-1.5 rounded-full", dotClass]}></span>
+    {name}
+  </span>
+)}

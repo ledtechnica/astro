@@ -1,0 +1,38 @@
+---
+title: "Installing Comodo Wildcard SSL Certificate on Heroku"
+description: "While there are many options for hosting your web app, I usually end up using Heroku. Heroku might get expensive quick especially if you…"
+pubDate: "2015-04-08T16:32:41.000Z"
+tags: ["heroku", "security", "ssl"]
+mediumId: "844c76736309"
+mediumUrl: "https://medium.com/@ledtechnica/installing-comodo-wildcard-ssl-certificate-on-heroku-844c76736309"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/installing-comodo-wildcard-ssl-certificate-on-heroku/1*iQsG_aZO9SbmTRSiwnq_0g.jpeg" />
+
+While there are many options for hosting your web app, I usually end up using [Heroku](https://www.heroku.com). Heroku might get expensive quick especially if you are adding a decent Postgres DB and/or SSL. But using Heroku is so simple, and it allows me to focus on my app as opposed to setting up and managing the needed infrastructure.
+
+One thing I end up doing a lot is installing an SSL certificate and for a while I kept referring [to an article](http://ryan.mcgeary.org/2011/09/16/how-to-add-a-dnsimple-ssl-certificate-to-heroku/) posted by [Ryan McGeary](http://ryan.mcgeary.org/). Like anything related to technology, it has become a little out of date as Comodo now sends different files as part of the wildcard certificate bundle purchase.
+
+Once you get the zipped certificate files from Comodo (I use [DNSimple](https://dnsimple.com)), unzip them and run the following command inside the folder to bundle them:
+
+$ cat STAR\_yourdomain\_com.crt \\  
+      COMODORSADomainValidationSecureServerCA.crt \\  
+      COMODORSAAddTrustCA.crt \\  
+      AddTrustExternalCARoot.crt > STAR\_yourdomain\_bundle.pem
+
+Then enable SSL add-on for your app either through the Heroku management console or the command line:
+
+$ heroku addons:add ssl
+
+After enabling the add-on, you can use the following command to upload your certificate to Heroku:
+
+$ heroku certs:add STAR\_yourdomain\_bundle.pem your\_private.key
+
+Once you run it, Heroku will let you know if certificate installation was successful and provide you with the specific SSL endpoint to use for your DNS.
+
+**Please note you will be charged $20/month for the add-on whether you upload the certificate or not so remember to remove the add-on if you no longer need SSL.**

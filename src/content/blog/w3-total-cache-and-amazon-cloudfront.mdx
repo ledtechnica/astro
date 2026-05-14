@@ -1,0 +1,16 @@
+---
+title: "W3 Total Cache and Amazon CloudFront"
+pubDate: "2013-08-08T16:42:00.000Z"
+tags: ["wordpress", "performance", "cdn"]
+mediumId: "d2d8226350d1"
+mediumUrl: "https://medium.com/@ledtechnica/w3-total-cache-and-amazon-cloudfront-d2d8226350d1"
+republishedFrom: "medium"
+---
+
+* * *
+
+Recently I installed [W3 Total Cache](http://wordpress.org/plugins/w3-total-cache/ "W3 Total Cache") plugin, which I heard good things about, in one of my blogs that is hosted on [Digital Ocean](https://www.digitalocean.com/ "Digital Ocean") Ubuntu droplet. Once I went in to configure the plug-in, however, the Amazon CloudFront option was greyed out under the CDN settings.
+
+In case someone else runs into the same issue, the fix was to install the php5-curl package with the following command:
+
+sudo apt-get install php5-curl

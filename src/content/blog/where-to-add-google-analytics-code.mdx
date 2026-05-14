@@ -1,0 +1,20 @@
+---
+title: "Where to add Google Analytics code?"
+pubDate: "2014-03-30T01:40:11.000Z"
+tags: ["analytics", "performance", "web"]
+mediumId: "6434649978f3"
+mediumUrl: "https://medium.com/@ledtechnica/where-to-add-google-analytics-code-6434649978f3"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/where-to-add-google-analytics-code/1*dtcxqEze9XK5ncPZUXfruA.png" />
+
+If you use [Google Analytics](https://google.com/analytics), one of the first questions you find yourself asking is “_where to add the Google Analytics code_?” on your page. The answer to this question was usually right before the closing \</body> tag since earlier versions of the analytics code was synchronous. Hence it was best practice to include the code towards the end of your page (at which point most of the page content was already visible on the screen) in order to provide a better end user experience.
+
+With the newer version of the code — which is asynchronous — [Google recommends that](https://support.google.com/analytics/answer/1008080) the tracking code is included right before the closing \</head> tag. Since the code runs asynchronously it should no longer impact your page load time as it does not stop page rendering. This also has the added benefit of making sure the visit is tracked even if the user decides to navigate away before the whole page is loaded.
+
+Note that you might not always be able to control this behavior precisely. For example, if you are using WordPress, the theme selected will usually provide a configuration option to add the tracking code. Where your Google Analytics code gets placed will then depend on how the theme author implemented the page setup. Of course you can change the underlying code in the theme to fix this which might create additional headache each time the theme gets updated.

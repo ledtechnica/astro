@@ -1,0 +1,28 @@
+---
+title: "RSpec Controller Testing with JBuilder"
+pubDate: "2014-04-08T02:39:07.000Z"
+tags: ["rails", "ruby", "testing"]
+mediumId: "b9102ffec76b"
+mediumUrl: "https://medium.com/@ledtechnica/rspec-controller-testing-with-jbuilder-b9102ffec76b"
+republishedFrom: "medium"
+---
+
+* * *
+
+I recently decided to use [Jbuilder](https://github.com/rails/jbuilder) for an app we are working on to help people manage their watch later video queues. While Rails has some out of the box functionality for creating JSON APIs (like [respond\_to](http://apidock.com/rails/ActionController/MimeResponds/InstanceMethods/respond_to) and [respond\_with](http://apidock.com/rails/ActionController/MimeResponds/respond_with)), it can [get out of hand](http://engineering.gomiso.com/2011/05/16/if-youre-using-to_json-youre-doing-it-wrong/) when you try to customize the JSON you want to return from your controllers like ignoring some columns or customizing the way it looks.
+
+As is usually the case in the Ruby on Rails world, a lot of smart people have created great gems to help address this issue. One of the [more popular gems](https://www.ruby-toolbox.com/categories/API_Builders) for example is [RABL](https://github.com/nesquena/rabl) which is described in [more detail in various articles](http://mt.gomiso.com/2011/06/27/building-a-platform-api-on-rails/).
+
+While I have experimented with RABL for some other projects, I decided to use Jbuilder since I read some good reviews about it and also with the hope that it would provide better integration as it is built by the Rails Core Team.
+
+So I installed it, wrote some tests and then proceeded to create the views. And this is when I started to run into some issues. While I was able to get the proper response when testing the API in the browser with a tool like Postman, my RSpec controller tests like the one below kept failing returning a null body:
+
+json = JSON.parse(response.body)  
+expect(json\['token\_type'\]).to eq 'bearer'
+
+After a few frustrating hours, I finally found the solution to the problem (as always thank you [Stack Exchange](http://stackoverflow.com/questions/9965945/why-is-jbuilder-not-returning-a-response-body-in-json-when-testing-rspec)), which is to include render\_views on top of the controller test file or to add the following block to your spec/spec\_helper.rb file:
+
+RSpec.configure do |config|  
+  # [https://github.com/rails/jbuilder/issues/32](https://github.com/rails/jbuilder/issues/32)  
+  config.render\_views = true  
+end

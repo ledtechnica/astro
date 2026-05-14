@@ -1,0 +1,30 @@
+---
+title: "Using Custom Fonts with a Rails 4 app"
+pubDate: "2014-05-22T14:15:24.000Z"
+tags: ["rails", "ruby", "design"]
+mediumId: "9f369c1f9d6f"
+mediumUrl: "https://medium.com/@ledtechnica/using-custom-fonts-with-a-rails-4-app-9f369c1f9d6f"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/using-custom-fonts-with-a-rails-4-app/1*gIHYPwLoMjMijK3_y6SczQ.png" />
+
+Webfonts are all the rage these days and with so many free (think [Google Fonts](https://www.google.com/fonts)) and paid (e.g. [Fonts.com](http://www.fonts.com) and [Typekit](https://typekit.com/)) online font-as-a-service providers, it is usually quite easy for developers to integrate different fonts to their websites.
+
+There are still certain cases, however, that you might want to include custom fonts in your project — especially with icon fonts such as [Font Awesome](http://fortawesome.github.io/Font-Awesome/) or [UI-Font Solid](http://ui8.net/category/fonts).
+
+It was during a nice day in Swaziland (where I was visiting for work and people were complaining about the harsh winter temperatures of 72 Fahrenheit) that I decided to use the latter of the above mentioned fonts for a [Ruby on Rails](http://rubyonrails.org/) project.
+
+So I opened up my faithful Chrome and started cruising the Internet at an amazing 88 Kbps connection to figure out how to make webfonts play nice with the Rails Asset Pipeline. After some research the first decent solution I ran into was a [Q&A in Stack Overflow](http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4). While it helped to a certain extent, I still was not entirely clear on how different pieces came together.
+
+So after more research I ran into an article titled “[Web fonts and Rails’ Asset Pipeline](https://coderwall.com/p/v5c8kq)” at Coderwall, which does a great job of explaining how to integrate fonts into a Rails 4 app in very simple terms. But having looked at so many and sometimes conflicting solutions at this point (and since they were all on the Internets they had to be true), I was slightly confused to put it mildly. After few tries I found that understanding the following nuances really helped me out:
+
+-   Rails 4 asset pipeline does not automatically process the app/assets/fonts directory so you need to add the following line into the application.rb file:
+
+config.assets.paths \<\< Rails.root.join(“app”, “assets”, “fonts”)
+
+-   Some articles referred to using _src:font-url()_ when referencing fonts in the css file as opposed to _src:url_. Basically when using the font-url option you do not need to give the full path and just use the font name such as _src: font-url(‘uifont-solid.eot’);_ Rails then automatically prepends the /assets path in front of the font in the final css file. Make sure to use the font-url shortcut when you are using either scss or less though as it does not work in a static css file.

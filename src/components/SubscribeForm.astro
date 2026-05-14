@@ -1,0 +1,32 @@
+---
+interface Props {
+  helperText?: string;
+  action?: string;
+}
+
+const {
+  helperText,
+  action = "https://formspree.io/f/REPLACE_ME",
+} = Astro.props;
+---
+
+<form class="flex flex-col gap-3" action={action} method="POST">
+  <div class="flex items-center gap-2 rounded-full border border-zinc-950/15 bg-white p-1.5 dark:border-white/15 dark:bg-zinc-900">
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="you@domain.com"
+      class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none dark:text-white dark:placeholder:text-zinc-500"
+    />
+    <button
+      type="submit"
+      class="inline-flex items-center gap-1.5 rounded-full bg-zinc-950 px-4 py-2 text-sm/5 font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+    >
+      Subscribe
+    </button>
+  </div>
+  {helperText && (
+    <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400" set:html={helperText}></p>
+  )}
+</form>

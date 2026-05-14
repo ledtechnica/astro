@@ -1,0 +1,41 @@
+---
+title: "Wildcard Subdomains in Heroku"
+pubDate: "2013-09-14T01:42:00.000Z"
+tags: ["heroku", "cloud", "infra"]
+mediumId: "f60105d89647"
+mediumUrl: "https://medium.com/@ledtechnica/wildcard-subdomains-in-heroku-f60105d89647"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/wildcard-subdomains-in-heroku/1*QzXxW2T_8S3nMoHuo9Q1aQ.png" />
+
+**Wildcard subdomains** are used primarily to handle name resolution to all subdomains for your domain. It is managed through a [wildcard DNS record](http://en.wikipedia.org/wiki/Wildcard_DNS_record "Description of Wildcard DNS records from Wikipedia"), which “is a record in a DNS zone that will match requests for non-existent domain names”.
+
+#### Wildcard subdomains but why?
+
+I am working on a multitenant Ruby on Rails app that creates a subdomain for each registered account. The main reason for creating specific subdomains for each account is to scope [\[1\]](#footnote-1 "Link to footnote on scoping") the associated data to prevent unauthorized access. While there are other ways to make this happen, such as using PostgreSQL schemas, I decided to go with scoping as it is somewhat simpler to implement.
+
+I needed to handle two technical details for this to happen. The first one was for my DNS service to resolve _each wildcard subdomain_ to a correct host, which thanks to my DNS provider — [DNSimple](https://dnsimple.com "DNSimple, a great DNS provider") — was relatively simple. All I needed to do was create a CNAME record for \*.mydomain.com to point to my web server (which was proxy.herokuapp.com in my case).
+
+The second thing I needed to do to make the wildcard subdomains work was to find a way for my web server — which in my case was hosted by [Heroku](https://www.heroku.com/) — to correctly serve the application using that subdomain.
+
+While it is feasible to add the subdomain for each new client through an API call to Heroku after account creation so that the application only responds to specific client subdomains, I was lazy so I added the \*.mydomain.com to my application’s configuration in Heroku which worked greatly.
+
+#### Until the day came
+
+When I realized that I needed to create another app on the same domain with a distinct subdomain. To see how I can best handle this case, I searched Heroku’s knowledge base and came across an article on how to setup [Custom Domains](https://devcenter.heroku.com/articles/custom-domains "Custom Domains article in Heroku Knowledge Base"). Unfortunately it did not really apply to my scenario so I did the next best thing and checked on [Stack Overflow](http://stackoverflow.com/ "Stack Overflow - Q&A site for programmers"). While I seem to misplace the one link that kind of covered this scenario, after some research it seemed like it was not feasible to assign a new subdomain to another app.
+
+So I decided to test this out myself by:
+
+1.  Setting up a new app in Heroku and
+2.  Adding the specific subdomain — api.mydomain.com — to the new application in Heroku management console
+
+While I feel like the cat per [Mark Twain’s quote](http://www.quotegarden.com/experience.html) below — not sure if there is any wisdom gained from this experience, so far this approach seems to work. My specific subdomain is pointing to the new application, while all other wildcard subdomains still point to the primary app.
+
+> We should be careful to get out of an experience only the wisdom that is in it — and stop there; lest we be like the cat that sits down on a hot stove-lid. She will never sit down on a hot stove-lid again — and that is well; but also she will never sit down on a cold one anymore.
+
+\[1\] Railscasts has a [great episode](http://railscasts.com/episodes/388-multitenancy-with-scopes) on scoping your users using subdomains. It is a pro episode and needs subscription but I strongly recommend it if you would like to learn about scoping your users/accounts.

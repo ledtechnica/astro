@@ -1,0 +1,38 @@
+---
+title: "Heroku Hosting — Is it for Idiots?"
+pubDate: "2013-08-11T04:14:00.000Z"
+tags: ["heroku", "cloud", "opinion"]
+mediumId: "22c3d38f9bfe"
+mediumUrl: "https://medium.com/@ledtechnica/heroku-hosting-is-it-for-idiots-22c3d38f9bfe"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/heroku-hosting-is-it-for-idiots/1*rT8AzQ8ghwelgWLclfgfgg.png" />
+
+The other day I came across an article titled [“Heroku Isn’t for Idiots”](http://www.rdegges.com/heroku-isnt-for-idiots/ "Heroku Isn't For Idiots") written by Randall Degges which was about the cloud hosting provider [Heroku](https://www.heroku.com "Heroku") — a major cloud hosting solutions provider. While I agree with its basic premise of focusing on your core strengths and outsourcing things that you are not most efficient to better qualified parties — such as using a managed cloud hosting as opposed to managing your own infrastructure — I was also intrigued by a reference to an “**incredibly fraudulent article which really made my blood boil**”.
+
+The “**guilty**” article titled [“The Cloud Is Not For You”](http://justcramer.com/2012/06/02/the-cloud-is-not-for-you/ "The Cloud Is Not For You") was written by David Cramer. I do not know David (or Randall for that matter) but I really did not think his article was fraudulent. To the contrary, I felt like David was just sharing his personal experience with **Heroku** and trying to debunk the myth that cloud web hosting is the right answer to every problem.
+
+While both articles and the commentaries made for informative and entertaining reads, it also reminded me of similar arguments that are unfortunately too common with respect to IT systems and applications.
+
+#### I guess it is in our nature
+
+By nature, IT folk love and trust technology. They are usually opinionated, have strong preferences (just ask any Vim user) and best of all are not afraid to “share” their expertise and opinions. While these are usually awesome traits (just look at all the open source projects and the freely available materials), this combination can sometimes cause us to dismiss and criticize too easily those things that do not fit in with our reality.
+
+For example, one criticism for David was that by not utilizing Heroku (or cloud hosting in general), he lost the ability to scale efficiently and has to work much harder to achieve a robust service platform, which leads to the question:
+
+> “Do all applications need a high–level of robustness & availability?”
+
+And the answer in most cases is a no. Going from 99.99% to 99.999% availability reduces the maximum allowable downtime in a year from 52.56 to 5.26 minutes. Obviously these two goals will require a totally different approach to architecture, design, and implementation.
+
+Actually David makes a great point in his follow-up article that he published the next day ([Scaling Your Clouds](http://justcramer.com/2012/06/03/scaling-your-clouds/ "Scaling Your Clouds")), in which he states:
+
+> “I built [getsentry.com](https://getsentry.com "Get Sentry") specifically with the goal of **optimizing cost vs profit margins**. This is the **first month that it’s been profitable**, and unless every single customer jumps ship at once, it’s unlikely that I will ever have to put my own money (excluding my time) into the project again.”
+
+It is clear that David has made a conscious decision about how to run his business: keeping costs down by using own infrastructure was more important than (in some cases the perceived) robustness and availability offered by cloud hosting providers.
+
+I think this is a good reminder for all of us that it is important to keep an open mind about different approaches and technologies and as an app developer we should try to understand what we are trying to achieve first and then design and implement the software and the required infrastructure.

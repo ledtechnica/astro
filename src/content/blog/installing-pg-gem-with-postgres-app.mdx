@@ -1,0 +1,28 @@
+---
+title: "Installing pg gem with Postgres.app"
+pubDate: "2014-08-02T01:27:12.000Z"
+tags: ["postgres", "ruby", "tools"]
+mediumId: "4fdab4f9c82f"
+mediumUrl: "https://medium.com/@ledtechnica/installing-pg-gem-with-postgres-app-4fdab4f9c82f"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+[PostgreSQL](http://www.postgresql.org/)? I love it. It is easy to work with, plays awesomely nice with [Ruby on Rails](http://rubyonrails.org/) and comes as a hassle-free add-on on the [Heroku](http://www.heroku.com/) platform.
+
+Installing PostgreSQL on a Mac though? _Not so much._ Even [installing PostgreSQL on a Mac with Homebrew](http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/) and then starting/stopping takes a little effort. And then you have to go run some more terminal comments and run it automatically, etc. Don’t get me wrong, I actually like using the command line (actually using the [Total Terminal](http://totalterminal.binaryage.com/) app which I really like) but I am not geek enough to have to do everything inside the terminal app.
+
+So I have been using the [Postgres.app](http://postgresapp.com/) almost for the past two years. The app is described as “_the easiest way to get started with PostgreSQL on the Mac_.”
+
+And it sure delivers on that promise.
+
+<Figure src="/posts/installing-pg-gem-with-postgres-app/1*GylcbawUG4JmvRZk7uI7Ig.jpeg" />
+
+Since it is so convenient to install and then set it to run automatically after system startup that I almost forget it is installed on my Mac. Hence every time I need to install the pg gem from scratch for whatever the reason, I have to remember how to do it with the Postgres.app.
+
+Such was the case when I realized that [OS X Mavericks somehow messed up](http://stackoverflow.com/questions/22338587/os-x-mavericks-broke-rbenv) my [rbenv](https://github.com/sstephenson/rbenv). And the only solution was — you guessed it right — going through the fun process of uninstalling rbenv and reinstalling it. So here is the command to install the pg gem with the Postgres.app for anyone who needs it (and for my future self I am sure):
+
+gem install pg — — with-pg-config=/Applications/Postgres.app/Contents/Versions/9.3/bin/pg\_config

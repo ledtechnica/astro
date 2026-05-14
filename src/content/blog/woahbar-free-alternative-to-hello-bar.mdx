@@ -1,0 +1,30 @@
+---
+title: "Woahbar: Free Alternative to Hello Bar"
+pubDate: "2014-02-05T21:56:00.000Z"
+tags: ["tools", "web", "opinion"]
+mediumId: "c7151996e5f"
+mediumUrl: "https://medium.com/@ledtechnica/woahbar-free-alternative-to-hello-bar-c7151996e5f"
+republishedFrom: "medium"
+---
+
+import Figure from "~/components/Figure.astro";
+
+* * *
+
+<Figure src="/posts/woahbar-free-alternative-to-hello-bar/1*5y_qILy4GYChIsXC3VbEyg.jpeg" />
+
+I really liked the concept of [Hello Bar](https://www.hellobar.com/ "Hello Bar") but did not want to pay for the service for my personal blog which runs on [WordPress](http://wordpress.org/ "WordPress"). So when I was looking around for alternatives I realized they have also released [HelloBar Solo](https://www.hellobar.com/solo/ "Hello Bar Solo"), which is a one-time paid download that I could include on my site. Another candidate I found that also looked interesting was the [WOAHBar](http://woahbar.com/ "WOAHBar").
+
+I wanted to check Hello Bar Solo first but when reading [this post](http://old.hellobar.com/blog/hello-bar-solo-wordpress-installation "Hello Bar Solo on Wordpress") regarding installation on WordPress, I saw a lot of people were having problems with the installation. Since I did not want to shell out $29 and then find out I run into similar issues as well, I decided to give WOAHBar a try.
+
+After a few tweaks — some of which was accompanied with some cussing — I was finally able to get it to work so wanted to share the few pointers:
+
+1.  WordPress loads jQuery in [noConflict](http://api.jquery.com/jQuery.noConflict/ "jQuery noConflict") mode, which meant that I needed to edit the woahbar.js to use jQuery as opposed to $.
+2.  WOAHBar uses some functions from [jQuery-UI](http://jqueryui.com/ "jQuery UI") — primarily from the Effects library. Since WordPress does not load these by default, I have downloaded a customized version of jQuery UI Effects and included it with the woahbar.js file.
+3.  I have added the script and css loading to my themes’ function.php file.
+
+Here is the link to the [final code on GitHub](https://github.com/ledtechnica/woahbar-wordpress "Code on GitHub") in case you would like to implement this in your WordPress blog.
+
+**Update:**
+
+This [article](http://viget.com/advance/how-to-track-internal-links-in-google-analytics) also shows a nice way to add Google Analytics tracking to the links on the WOAHBar.

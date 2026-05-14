@@ -1,0 +1,18 @@
+---
+// Inline theme script — MUST appear in <head> before any rendered content.
+// Reads ledtechnica:theme from localStorage and sets `.dark` on <html> before
+// paint, killing FOUC (white-flash on dark devices).
+//
+// `is:inline` keeps this out of Astro's module pipeline so it runs synchronously
+// at parse time — no waiting for hydration, no bundling.
+---
+
+<script is:inline>
+  (function () {
+    const t = localStorage.getItem("ledtechnica:theme") || "system";
+    const dark =
+      t === "dark" ||
+      (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("dark", dark);
+  })();
+</script>

@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import logoSrc from "~/assets/logo.svg";
+
+interface Props {
+  /**
+   * "navbar" → small plated mark, no halo (used everywhere except home hero).
+   * "hero"   → 168px floating disc, hover yellow halo. Home page only.
+   *            Pairs with the scroll-driven JS in BaseLayout that morphs it
+   *            into the navbar slot once you scroll past the hero.
+   */
+  mode?: "navbar" | "hero";
+  href?: string;
+  ariaLabel?: string;
+}
+
+const { mode = "navbar", href = "/", ariaLabel = "LED Technica home" } = Astro.props;
+---
+
+{mode === "hero" ? (
+  <div class="logo-floater" data-logo-floater>
+    <Image src={logoSrc} alt="LED Technica" width={140} height={140} />
+  </div>
+) : (
+  <a href={href} class="flex items-center gap-2.5" aria-label={ariaLabel}>
+    <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+      <Image src={logoSrc} alt="" class="size-7 rounded-full object-contain" width={36} height={36} />
+    </span>
+    <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+  </a>
+)}
