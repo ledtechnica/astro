@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscribe — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','ui-sans-serif','system-ui'],display:['Geist','ui-sans-serif','system-ui'],mono:['Geist Mono','ui-monospace','monospace']},colors:{led:{pink:'#ec4673',yellow:'#f5c542',cyan:'#2dd4d4'}}}}};</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <header data-navbar data-screen-label="06 Subscribe" class="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-white/75 backdrop-blur-md dark:bg-zinc-950/75 dark:border-white/10">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10"><img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" /></span>
+          <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Latest</a></li>
+            <li><a href="archive.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="about.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About</a></li>
+            <li><a href="subscribe.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-950 dark:text-white">Subscribe</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Design</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <div role="group" class="inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+          <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+          <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 mx-auto max-w-4xl px-6 pt-32 lg:px-8">
+    <header class="border-b border-zinc-950/10 pb-10 dark:border-white/10">
+      <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">3,400 subscribers</span>
+      <h1 class="mt-4 font-display text-[clamp(2.2rem,4.5vw,3rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-balance max-w-3xl">Pick how you want LED Technica delivered.</h1>
+      <p class="mt-4 max-w-[55ch] text-[1.05rem] text-zinc-500 dark:text-zinc-400 text-pretty">No tracking pixels, no third-party scripts, no algorithm. New posts go out within minutes of publication on every channel below.</p>
+    </header>
+
+    <!-- Email subscribe (primary) -->
+    <section class="subscribe-glow mt-12 rounded-2xl border border-zinc-950/10 p-10 dark:border-white/10">
+      <div class="flex items-center gap-3">
+        <span class="grid size-10 place-items-center rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-5"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2"/></svg>
+        </span>
+        <div>
+          <h2 class="font-display text-[1.35rem] font-semibold tracking-tight">Email digest</h2>
+          <p class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Most popular · ~3.4k subscribers</p>
+        </div>
+      </div>
+      <p class="mt-5 max-w-prose text-[0.98rem] text-zinc-500 dark:text-zinc-400">One email per post, delivered as plain text with the article body inline. Unsubscribe in one click. Open rate is none of my business; I don't track it.</p>
+      <form class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <input type="email" placeholder="you@domain.com"
+               class="flex-1 rounded-full border border-zinc-950/15 bg-white px-5 py-3 text-[0.95rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-led-cyan dark:border-white/15 dark:bg-zinc-900 dark:text-white" />
+        <button type="button" class="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-6 py-3 text-[0.95rem] font-semibold text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">
+          Subscribe
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Hosted on Buttondown · GDPR friendly · <a href="#" class="text-zinc-950 underline-offset-2 hover:underline dark:text-white">privacy policy</a></p>
+    </section>
+
+    <!-- Feed cards grid -->
+    <section class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <div class="flex items-center gap-3">
+          <span class="grid size-9 place-items-center rounded-xl bg-led-pink/15">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4 text-led-pink"><path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+          </span>
+          <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">RSS</h3>
+        </div>
+        <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Full-text RSS 2.0. Works with NetNewsWire, Feedbin, Reeder, Miniflux.</p>
+        <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">https://ledtechnica.dev/feed.xml</code>
+      </div>
+
+      <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <div class="flex items-center gap-3">
+          <span class="grid size-9 place-items-center rounded-xl bg-led-yellow/15">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4 text-led-yellow"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </span>
+          <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Atom</h3>
+        </div>
+        <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Atom 1.0 with full content. Use this if your reader chokes on the RSS feed.</p>
+        <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">https://ledtechnica.dev/feed.atom</code>
+      </div>
+
+      <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <div class="flex items-center gap-3">
+          <span class="grid size-9 place-items-center rounded-xl bg-led-cyan/15">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4 text-led-cyan"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+          </span>
+          <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">JSON Feed</h3>
+        </div>
+        <p class="text-[13px] text-zinc-500 dark:text-zinc-400">JSON Feed 1.1 for indie web readers and your own scripts.</p>
+        <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">https://ledtechnica.dev/feed.json</code>
+      </div>
+
+      <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <div class="flex items-center gap-3">
+          <span class="grid size-9 place-items-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="size-4 text-zinc-700 dark:text-zinc-300"><path d="M12 19c-7 0-9-4-9-7s2-7 9-7 9 4 9 7-2 7-9 7zM9 10v4M15 10v4"/></svg>
+          </span>
+          <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Mastodon</h3>
+        </div>
+        <p class="text-[13px] text-zinc-500 dark:text-zinc-400">A post per article. Follow to see them appear in your home timeline.</p>
+        <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">@ledtechnica@hachyderm.io</code>
+      </div>
+    </section>
+
+    <!-- Per-tag feeds -->
+    <section class="mt-14">
+      <h2 class="font-display text-[1.25rem] font-semibold tracking-tight">Per-tag feeds</h2>
+      <p class="mt-1 max-w-[55ch] text-[0.95rem] text-zinc-500 dark:text-zinc-400">Want just the Postgres posts? Just security? Each tag has its own feed.</p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <a href="#" class="inline-flex items-center gap-2 rounded-full border border-zinc-950/10 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>infra.xml</a>
+        <a href="#" class="inline-flex items-center gap-2 rounded-full border border-zinc-950/10 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud.xml</a>
+        <a href="#" class="inline-flex items-center gap-2 rounded-full border border-zinc-950/10 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>postgres.xml</a>
+        <a href="#" class="inline-flex items-center gap-2 rounded-full border border-zinc-950/10 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>security.xml</a>
+        <a href="#" class="inline-flex items-center gap-2 rounded-full border border-zinc-950/10 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>performance.xml</a>
+      </div>
+    </section>
+
+    <footer class="mt-24 border-t border-zinc-950/10 py-10 text-center font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+      © 2026 LED Technica · <a href="pages.html" class="hover:text-zinc-950 dark:hover:text-white">All page designs →</a>
+    </footer>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

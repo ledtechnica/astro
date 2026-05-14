@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LED Technica — Tech, cloud, & infrastructure notes</title>
+  <meta name="description" content="A blog on cloud computing, infrastructure, and the boring tools that keep the lights on." />
+
+  <!-- Apply theme immediately to avoid flash -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('ledtechnica:theme') || 'system';
+      var dark = t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('dark', dark);
+    })();
+  </script>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            led: {
+              pink: '#ec4673',
+              yellow: '#f5c542',
+              cyan: '#2dd4d4',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="shared.css" />
+</head>
+
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <!-- ============================================================
+       NAVBAR — Catalyst-style. Slides in once you scroll past hero.
+       ============================================================ -->
+  <header
+    data-navbar
+    data-screen-label="01 Home"
+    class="fixed inset-x-0 top-0 z-40 -translate-y-full border-b border-transparent bg-white/75 backdrop-blur-md backdrop-saturate-150 transition-transform duration-300 ease-out data-[pinned=true]:translate-y-0 data-[pinned=true]:border-zinc-950/10 dark:bg-zinc-950/75 dark:data-[pinned=true]:border-white/10"
+  >
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <!-- Left: brand + nav -->
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <!-- Logo slot: the floating logo lands here when scrolled -->
+          <span data-logo-slot class="block size-[38px] shrink-0"></span>
+          <span class="font-display text-[15px] font-semibold tracking-tight text-zinc-950 dark:text-white">LED Technica</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="inline-flex items-center rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-950 dark:text-white">Latest</a></li>
+            <li><a href="archive.html" class="inline-flex items-center rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="about.html" class="inline-flex items-center rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About</a></li>
+            <li><a href="subscribe.html" class="inline-flex items-center rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Subscribe</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Design</a></li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Right: search, RSS, theme toggle -->
+      <div class="flex items-center gap-2">
+        <a href="search.html" aria-label="Search" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </a>
+        <a href="subscribe.html" aria-label="RSS" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-4"><path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+        </a>
+
+        <!-- Theme toggle (Catalyst-style segmented control) -->
+        <div role="group" aria-label="Theme" class="ml-1 inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="group grid size-7 place-items-center rounded-full text-zinc-500 transition data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          </button>
+          <button data-theme-btn="system" aria-label="System" class="group grid size-7 place-items-center rounded-full text-zinc-500 transition data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </button>
+          <button data-theme-btn="dark" aria-label="Dark" class="group grid size-7 place-items-center rounded-full text-zinc-500 transition data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO — centered glowing logo, scroll-aware
+       ============================================================ -->
+  <main class="relative z-10">
+    <section data-logo-stage class="hero-halo relative mt-16 grid h-[360px] place-items-center px-6">
+      <!-- Tagline -->
+      <div class="pointer-events-none absolute top-6 left-0 right-0 mx-auto max-w-2xl text-center">
+        <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">Est. 2024 · Cloud, infra, & boring tools</span>
+      </div>
+      <!-- The floating logo (fixed-positioned, animated via JS) -->
+      <div class="logo-floater">
+        <img src="assets/led-technica-white.png" alt="LED Technica" />
+      </div>
+    </section>
+
+    <!-- Title block under logo -->
+    <div class="mx-auto max-w-6xl px-6 lg:px-8">
+      <div class="text-center pt-2 pb-2">
+        <h1 class="font-display text-[clamp(2.4rem,5vw,3.6rem)] font-semibold tracking-[-0.03em] leading-[1.05] text-zinc-950 dark:text-white text-balance">
+          Notes from the rack room.
+        </h1>
+        <p class="mx-auto mt-5 max-w-xl text-pretty text-[1.05rem] text-zinc-500 dark:text-zinc-400">
+          Postmortems, pattern libraries, and field notes on running real systems in the cloud. New posts most weeks.
+        </p>
+        <div class="mt-7 flex items-center justify-center gap-2">
+          <a href="subscribe.html"
+             class="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-3.5 py-2 text-sm/5 font-semibold text-white shadow-sm ring-1 ring-zinc-950/10 transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:ring-white/20 dark:hover:bg-zinc-200">
+            Subscribe
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="archive.html"
+             class="inline-flex items-center gap-2 rounded-lg bg-transparent px-3.5 py-2 text-sm/5 font-semibold text-zinc-950 ring-1 ring-zinc-950/15 transition hover:bg-zinc-950/5 dark:text-white dark:ring-white/15 dark:hover:bg-white/5">
+            Browse archive
+          </a>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           FEATURED POST
+           ============================================================ -->
+      <section class="mt-20 grid grid-cols-1 gap-10 border-t border-zinc-950/10 pt-12 dark:border-white/10 md:grid-cols-[1.05fr_1fr] md:gap-12 md:items-center">
+        <!-- Visual -->
+        <a href="post.html" class="group relative block aspect-[5/4] overflow-hidden rounded-2xl border border-zinc-950/10 bg-zinc-100 dark:border-white/10 dark:bg-zinc-900">
+          <!-- Schematic LED circuit illustration -->
+          <svg viewBox="0 0 500 400" class="absolute inset-0 size-full" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5" class="text-zinc-950/[0.04] dark:text-white/[0.05]"/>
+              </pattern>
+              <radialGradient id="pinkGlow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0%" stop-color="#ec4673" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#ec4673" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="yellowGlow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0%" stop-color="#f5c542" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#f5c542" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="cyanGlow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0%" stop-color="#2dd4d4" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#2dd4d4" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="500" height="400" fill="url(#grid)"/>
+            <!-- circuit traces -->
+            <g stroke="currentColor" stroke-width="1.5" fill="none" class="text-zinc-950/30 dark:text-white/25">
+              <path d="M40 200 L160 200 L160 100 L320 100"/>
+              <path d="M160 200 L260 200 L260 300 L420 300"/>
+              <path d="M260 200 L380 200"/>
+              <path d="M40 60 L100 60 L100 140"/>
+              <path d="M420 200 L460 200 L460 80"/>
+            </g>
+            <!-- nodes -->
+            <g class="text-zinc-950/40 dark:text-white/40" fill="currentColor">
+              <circle cx="40" cy="200" r="3"/>
+              <circle cx="160" cy="200" r="3"/>
+              <circle cx="260" cy="200" r="3"/>
+              <circle cx="260" cy="300" r="3"/>
+              <circle cx="100" cy="60" r="3"/>
+              <circle cx="460" cy="80" r="3"/>
+            </g>
+            <!-- LED bulbs -->
+            <circle cx="320" cy="100" r="60" fill="url(#pinkGlow)"/>
+            <circle cx="320" cy="100" r="18" fill="#ec4673"/>
+            <circle cx="320" cy="100" r="18" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="1"/>
+
+            <circle cx="100" cy="140" r="60" fill="url(#yellowGlow)"/>
+            <circle cx="100" cy="140" r="18" fill="#f5c542"/>
+            <circle cx="100" cy="140" r="18" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="1"/>
+
+            <circle cx="420" cy="300" r="60" fill="url(#cyanGlow)"/>
+            <circle cx="420" cy="300" r="18" fill="#2dd4d4"/>
+            <circle cx="420" cy="300" r="18" fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="1"/>
+
+            <!-- Labels -->
+            <g class="font-mono fill-zinc-950/60 dark:fill-white/60" font-size="9" font-family="Geist Mono, monospace">
+              <text x="44" y="210">A0</text>
+              <text x="264" y="190">D7</text>
+              <text x="44" y="50">GND</text>
+              <text x="430" y="80">VCC</text>
+            </g>
+          </svg>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+        </a>
+
+        <!-- Body -->
+        <div class="flex flex-col gap-4">
+          <span class="inline-flex items-center gap-2 self-start font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-led-pink">
+            <span class="size-2 rounded-full bg-led-pink shadow-[0_0_10px_#ec4673]"></span>
+            Pinned · Featured
+          </span>
+          <h2 class="font-display text-[clamp(1.8rem,3.3vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-zinc-950 dark:text-white text-balance">
+            <a href="post.html" class="headline-link">Why we replaced our Kubernetes stack with three boring boxes</a>
+          </h2>
+          <p class="text-[1.02rem] text-zinc-500 dark:text-zinc-400 text-pretty max-w-[52ch]">
+            Eighteen months ago we ran 60 nodes across three clusters. Today we run six racks in two data centers. Here's what we learned, what broke, and what we'd do again.
+          </p>
+          <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span class="size-7 rounded-full avatar-led ring-2 ring-white dark:ring-zinc-950"></span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-950 dark:text-white">Maya Ortiz</span>
+            <span class="size-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">May 4, 2026</span>
+            <span class="size-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">14 min read</span>
+          </div>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <a href="archive.html?tag=infra" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 transition hover:border-zinc-950/20 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:border-white/20 dark:hover:text-white">
+              <span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>infra
+            </a>
+            <a href="archive.html?tag=postmortem" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 transition hover:border-zinc-950/20 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:border-white/20 dark:hover:text-white">
+              <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>postmortem
+            </a>
+            <a href="archive.html?tag=cloud" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 transition hover:border-zinc-950/20 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:border-white/20 dark:hover:text-white">
+              <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           ARTICLE LIST
+           ============================================================ -->
+      <section class="mt-24">
+        <div class="flex items-baseline justify-between gap-4 border-b border-zinc-950/10 pb-3 dark:border-white/10">
+          <h2 class="text-base/6 font-semibold text-zinc-950 dark:text-white">All articles</h2>
+          <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">128 posts · sorted newest</span>
+        </div>
+
+        <ul class="flex flex-col">
+          <!-- POST ROW -->
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 28, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">Designing rate limits that don't lie</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                Most rate limiters fail closed in confusing ways. Here's a tiered token-bucket design that fails open for read traffic and tells callers exactly why they're being throttled.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>api
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>reliability
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">9 min · #42</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 21, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">S3 Express One Zone: real numbers from production</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                We moved 40&nbsp;TB of hot intermediate data off standard S3. Latency dropped, costs surprised us, and one access pattern got dramatically worse.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>aws
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>performance
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">11 min · #41</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 14, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">What I learned debugging a TLS handshake at 3am</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                A misconfigured intermediate cert, a load balancer that lied about it, and the wireshark capture that finally cracked it open.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>security
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>debugging
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">7 min · #40</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 07, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">Postgres locking, illustrated</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                A visual tour of row, page, and table locks — with the queries that produce each and the deadlocks they enable.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>postgres
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>databases
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">12 min · #39</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Mar 31, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">The case for boring tools in a vibe-coded world</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                Why your next side project should probably use Postgres, nginx, and a single VM — and the times that advice is dead wrong.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>opinion
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>tools
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">6 min · #38</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Mar 24, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">Building an internal CDN with Cloudflare Workers</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                Twelve lines of Workers config that replaced a fifty-thousand-dollar contract. The trade-offs and the gotchas.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>edge
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">8 min · #37</span>
+          </li>
+
+          <li class="grid grid-cols-1 gap-2 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline">
+            <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Mar 17, 2026</span>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em] text-zinc-950 dark:text-white">
+                <a href="post.html" class="headline-link">Async is a lie (and that's fine)</a>
+              </h3>
+              <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400 text-pretty">
+                What every async runtime actually does behind your back, and why understanding it makes your code measurably faster.
+              </p>
+              <div class="mt-1 flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>languages
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>performance
+                </span>
+              </div>
+            </div>
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">10 min · #36</span>
+          </li>
+        </ul>
+
+        <div class="mt-10 flex items-center justify-center">
+          <a href="archive.html" class="inline-flex items-center gap-2 rounded-lg bg-transparent px-3.5 py-2 text-sm/5 font-semibold text-zinc-950 ring-1 ring-zinc-950/15 transition hover:bg-zinc-950/5 dark:text-white dark:ring-white/15 dark:hover:bg-white/5">
+            See all 128 posts
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SUBSCRIBE BLOCK
+           ============================================================ -->
+      <section class="subscribe-glow mt-24 grid grid-cols-1 gap-10 rounded-2xl border border-zinc-950/10 p-10 md:grid-cols-2 md:items-center dark:border-white/10">
+        <div>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">The Newsletter</span>
+          <h3 class="mt-3 font-display text-[1.55rem] font-semibold tracking-[-0.02em] text-zinc-950 dark:text-white">One post in your inbox, most Tuesdays.</h3>
+          <p class="mt-2 max-w-[42ch] text-[0.95rem] text-zinc-500 dark:text-zinc-400">Plain text. No tracking pixels. Unsubscribe with one click. RSS available below.</p>
+        </div>
+        <form class="flex flex-col gap-3">
+          <div class="flex items-center gap-2 rounded-full border border-zinc-950/15 bg-white p-1.5 dark:border-white/15 dark:bg-zinc-900">
+            <input type="email" placeholder="you@domain.com"
+                   class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none dark:text-white dark:placeholder:text-zinc-500" />
+            <button type="button" class="inline-flex items-center gap-1.5 rounded-full bg-zinc-950 px-4 py-2 text-sm/5 font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">
+              Subscribe
+            </button>
+          </div>
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Or grab the <a href="subscribe.html" class="text-zinc-950 underline-offset-2 hover:underline dark:text-white">RSS feed</a></p>
+        </form>
+      </section>
+    </div>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="mx-auto mt-24 max-w-6xl border-t border-zinc-950/10 px-6 py-12 dark:border-white/10 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr_1fr_1fr]">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="grid size-8 place-items-center rounded-full bg-black">
+              <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+            </span>
+            <span class="font-display text-[15px] font-semibold tracking-tight text-zinc-950 dark:text-white">LED Technica</span>
+          </div>
+          <p class="mt-3 max-w-xs text-[13px] text-zinc-500 dark:text-zinc-400">A blog by Maya Ortiz. Hand-written posts on the cloud and the boring tech behind it.</p>
+        </div>
+        <div>
+          <h4 class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.1em] text-zinc-950 dark:text-white">Read</h4>
+          <ul class="mt-3 flex flex-col gap-2 text-[13px]">
+            <li><a href="index.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Latest</a></li>
+            <li><a href="archive.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="search.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Search</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.1em] text-zinc-950 dark:text-white">Follow</h4>
+          <ul class="mt-3 flex flex-col gap-2 text-[13px]">
+            <li><a href="subscribe.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">RSS / Atom</a></li>
+            <li><a href="subscribe.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Email digest</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Mastodon</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.1em] text-zinc-950 dark:text-white">About</h4>
+          <ul class="mt-3 flex flex-col gap-2 text-[13px]">
+            <li><a href="about.html" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About this site</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Colophon</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Source on GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 flex items-center justify-between border-t border-zinc-950/10 pt-6 dark:border-white/10">
+        <p class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">© 2026 LED Technica · Built with Astro</p>
+        <a href="pages.html" class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">All page designs →</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="shared.js"></script>
+</body>
+</html>

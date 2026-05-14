@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','ui-sans-serif','system-ui'],display:['Geist','ui-sans-serif','system-ui'],mono:['Geist Mono','ui-monospace','monospace']},colors:{led:{pink:'#ec4673',yellow:'#f5c542',cyan:'#2dd4d4'}}}}};</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <header data-navbar data-screen-label="05 Search" class="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-white/75 backdrop-blur-md dark:bg-zinc-950/75 dark:border-white/10">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10"><img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" /></span>
+          <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Latest</a></li>
+            <li><a href="archive.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="about.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About</a></li>
+            <li><a href="subscribe.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Subscribe</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Design</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <div role="group" class="inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+          <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+          <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 mx-auto max-w-3xl px-6 pt-32 lg:px-8">
+    <header class="border-b border-zinc-950/10 pb-10 dark:border-white/10">
+      <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">Full-text search</span>
+      <h1 class="mt-4 font-display text-[clamp(2.2rem,4.5vw,3rem)] font-semibold leading-[1.05] tracking-[-0.03em]">Search</h1>
+    </header>
+
+    <!-- Search input -->
+    <div class="mt-10 flex items-center gap-3 rounded-xl border border-zinc-950/15 bg-white px-5 py-4 shadow-sm dark:border-white/15 dark:bg-zinc-900/60">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-5 text-zinc-500"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" value="postgres lock" class="flex-1 border-0 bg-transparent text-[1.1rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none dark:text-white" />
+      <kbd class="rounded border border-zinc-950/10 bg-zinc-50 px-2 py-0.5 font-mono text-[11px] text-zinc-500 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">⌘K</kbd>
+    </div>
+
+    <div class="mt-3 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">
+      <span>7 results · 0.12s</span>
+      <span class="flex gap-3">
+        <button class="text-zinc-950 dark:text-white">Relevance</button>
+        <button>Newest</button>
+        <button>Oldest</button>
+      </span>
+    </div>
+
+    <!-- Results -->
+    <ul class="mt-8 flex flex-col">
+      <li class="border-b border-zinc-950/10 py-6 dark:border-white/10">
+        <a href="post.html" class="block">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 07, 2026 · postgres · 12 min</p>
+          <h3 class="mt-2 font-display text-[1.25rem] font-semibold tracking-tight">
+            <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">Postgres lock</mark>ing, illustrated
+          </h3>
+          <p class="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">
+            A visual tour of row, page, and table <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">locks</mark> — with the queries that produce each and the deadlocks they enable. Includes a flowchart you can print and tape to your monitor.
+          </p>
+        </a>
+      </li>
+      <li class="border-b border-zinc-950/10 py-6 dark:border-white/10">
+        <a href="post.html" class="block">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Nov 14, 2025 · postgres · 9 min</p>
+          <h3 class="mt-2 font-display text-[1.25rem] font-semibold tracking-tight">
+            A practical guide to <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">Postgres</mark> VACUUM
+          </h3>
+          <p class="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">
+            …autovacuum holds an <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">access share lock</mark>, which can starve heavyweight DDL but rarely blocks normal traffic. The actual problems start when…
+          </p>
+        </a>
+      </li>
+      <li class="border-b border-zinc-950/10 py-6 dark:border-white/10">
+        <a href="post.html" class="block">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Aug 18, 2025 · postgres, debugging · 11 min</p>
+          <h3 class="mt-2 font-display text-[1.25rem] font-semibold tracking-tight">
+            Reading <code class="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.85em] dark:bg-zinc-800">pg_stat_activity</code> when everything's on fire
+          </h3>
+          <p class="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">
+            …the <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">lock</mark> column tells you who's waiting, but it's the wait_event_type that tells you why. Here are the five rows I always check first…
+          </p>
+        </a>
+      </li>
+      <li class="border-b border-zinc-950/10 py-6 dark:border-white/10">
+        <a href="post.html" class="block">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">May 02, 2025 · postgres, opinion · 5 min</p>
+          <h3 class="mt-2 font-display text-[1.25rem] font-semibold tracking-tight">
+            Stop using <code class="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-[0.85em] dark:bg-zinc-800">SELECT FOR UPDATE</code> as a queue
+          </h3>
+          <p class="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">
+            …yes, it gives you a row <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">lock</mark>. Yes, it's safe. No, it does not scale to where you think it scales…
+          </p>
+        </a>
+      </li>
+      <li class="py-6">
+        <a href="post.html" class="block">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Feb 11, 2025 · postgres · 7 min</p>
+          <h3 class="mt-2 font-display text-[1.25rem] font-semibold tracking-tight">
+            A field guide to deadlocks
+          </h3>
+          <p class="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">
+            …the <mark class="rounded bg-led-yellow/40 px-1 text-zinc-950 dark:text-white">lock</mark> graph that Postgres prints in its deadlock detector log is one of the most useful diagnostic tools in the database. Here's how to read it…
+          </p>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Tag suggestions -->
+    <div class="mt-10 rounded-2xl border border-zinc-950/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-zinc-900/40">
+      <p class="font-mono text-[11px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Try a tag</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 bg-white px-3 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-yellow"></span>postgres</a>
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 bg-white px-3 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-cyan"></span>databases</a>
+        <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 bg-white px-3 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-pink"></span>incidents</a>
+      </div>
+    </div>
+
+    <footer class="mt-24 border-t border-zinc-950/10 py-10 text-center font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+      © 2026 LED Technica · <a href="pages.html" class="hover:text-zinc-950 dark:hover:text-white">All page designs →</a>
+    </footer>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

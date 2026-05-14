@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why we replaced our Kubernetes stack with three boring boxes — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: {
+          sans: ['Geist','ui-sans-serif','system-ui','sans-serif'],
+          display: ['Geist','ui-sans-serif','system-ui','sans-serif'],
+          mono: ['Geist Mono','ui-monospace','monospace'],
+        },
+        colors: { led: { pink:'#ec4673', yellow:'#f5c542', cyan:'#2dd4d4' } },
+      } },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <!-- NAVBAR (always pinned on inner pages) -->
+  <header data-navbar data-screen-label="02 Article" class="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-white/75 backdrop-blur-md backdrop-saturate-150 dark:bg-zinc-950/75 dark:border-white/10">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+            <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+          </span>
+          <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="inline-flex rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Latest</a></li>
+            <li><a href="archive.html" class="inline-flex rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="about.html" class="inline-flex rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About</a></li>
+            <li><a href="subscribe.html" class="inline-flex rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Subscribe</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Design</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="search.html" aria-label="Search" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </a>
+        <a href="subscribe.html" aria-label="RSS" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="size-4"><path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+        </a>
+        <div role="group" aria-label="Theme" class="ml-1 inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+          <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+          <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============== ARTICLE ============== -->
+  <main class="relative z-10 mx-auto max-w-6xl px-6 pt-32 lg:px-8">
+    <!-- Header -->
+    <header class="mx-auto max-w-2xl border-b border-zinc-950/10 pb-10 dark:border-white/10">
+      <div class="mb-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">
+        <a href="index.html" class="hover:text-zinc-950 dark:hover:text-white">Articles</a>
+        <span>/</span>
+        <a href="archive.html?tag=infra" class="hover:text-zinc-950 dark:hover:text-white">Infra</a>
+      </div>
+      <h1 class="font-display text-[clamp(2.2rem,4.5vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-balance">
+        Why we replaced our Kubernetes stack with three boring boxes
+      </h1>
+      <p class="mt-5 text-[1.2rem] text-zinc-500 dark:text-zinc-400 text-pretty max-w-[42ch]">
+        Eighteen months of cluster rot, a runaway bill, and the day we ssh'd into hardware again.
+      </p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">
+        <span class="inline-flex items-center gap-2">
+          <span class="size-7 rounded-full avatar-led ring-2 ring-white dark:ring-zinc-950"></span>
+          <span class="text-zinc-950 dark:text-white">Maya Ortiz</span>
+        </span>
+        <span class="size-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+        <span>May 4, 2026</span>
+        <span class="size-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+        <span>14 min read</span>
+        <span class="size-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+        <span class="inline-flex items-center gap-1.5"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>infra</span>
+      </div>
+    </header>
+
+    <!-- Hero figure -->
+    <figure class="mx-auto mt-12 max-w-4xl">
+      <div class="relative aspect-[16/8] overflow-hidden rounded-2xl border border-zinc-950/10 bg-zinc-100 dark:border-white/10 dark:bg-zinc-900">
+        <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 size-full">
+          <defs>
+            <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5" class="text-zinc-950/[0.05] dark:text-white/[0.06]"/></pattern>
+          </defs>
+          <rect width="800" height="400" fill="url(#grid2)"/>
+          <!-- three boring boxes -->
+          <g stroke="currentColor" stroke-width="1.5" fill="none" class="text-zinc-950/30 dark:text-white/25">
+            <rect x="120" y="140" width="140" height="120" rx="4"/>
+            <rect x="330" y="140" width="140" height="120" rx="4"/>
+            <rect x="540" y="140" width="140" height="120" rx="4"/>
+            <path d="M260 200 L330 200"/>
+            <path d="M470 200 L540 200"/>
+          </g>
+          <g fill="currentColor" class="text-zinc-950/40 dark:text-white/40">
+            <rect x="135" y="155" width="110" height="6" rx="1"/>
+            <rect x="135" y="170" width="80" height="6" rx="1"/>
+            <rect x="135" y="185" width="100" height="6" rx="1"/>
+            <rect x="345" y="155" width="110" height="6" rx="1"/>
+            <rect x="345" y="170" width="80" height="6" rx="1"/>
+            <rect x="345" y="185" width="100" height="6" rx="1"/>
+            <rect x="555" y="155" width="110" height="6" rx="1"/>
+            <rect x="555" y="170" width="80" height="6" rx="1"/>
+            <rect x="555" y="185" width="100" height="6" rx="1"/>
+          </g>
+          <circle cx="190" cy="240" r="5" fill="#ec4673"/>
+          <circle cx="400" cy="240" r="5" fill="#f5c542"/>
+          <circle cx="610" cy="240" r="5" fill="#2dd4d4"/>
+          <g class="font-mono fill-zinc-950/60 dark:fill-white/60" font-size="10" font-family="Geist Mono, monospace">
+            <text x="120" y="285">web-01</text>
+            <text x="330" y="285">db-01</text>
+            <text x="540" y="285">db-02</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Figure 1 — the new topology, in its entirety</figcaption>
+    </figure>
+
+    <!-- Body + TOC -->
+    <div class="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,2fr)_220px]">
+      <article class="prose-led max-w-[680px] text-zinc-700 dark:text-zinc-300">
+        <p class="text-[1.15rem] text-zinc-600 dark:text-zinc-300">In April of 2024 we ran 60 nodes across three Kubernetes clusters in two regions. We had three SREs on call. Our infra bill was the second-biggest line item in the company. Today we run six servers, on rails, in two colocation facilities. One person is on call. Our bill is one twelfth what it was. Here's how, and the parts that didn't go to plan.</p>
+
+        <h2 id="the-old-stack">The old stack</h2>
+        <p>For context: we were a Series&nbsp;B startup with twenty engineers and a product that was, frankly, a single Postgres database, two API services, and a handful of cron jobs. We ran it on EKS because that's what you do.</p>
+        <p>Our setup looked something like this — three clusters for prod, staging, and a "scratch" environment we'd let ourselves get talked into, plus a managed Postgres, plus a managed Redis, plus a managed Kafka we'd added six months earlier for one specific feature and then never removed.</p>
+
+        <pre data-lang="terraform"><code><span class="tok-k">module</span> <span class="tok-s">"prod_cluster"</span> {
+  <span class="tok-n">source</span>  = <span class="tok-s">"terraform-aws-modules/eks/aws"</span>
+  <span class="tok-n">version</span> = <span class="tok-s">"~&gt; 19.0"</span>
+
+  <span class="tok-n">cluster_name</span>     = <span class="tok-s">"prod"</span>
+  <span class="tok-n">cluster_version</span>  = <span class="tok-s">"1.27"</span>
+  <span class="tok-n">node_groups</span>      = <span class="tok-f">local.node_groups</span>  <span class="tok-c">// 18 groups, do not ask</span>
+}</code></pre>
+
+        <h2 id="the-breaking-point">The breaking point</h2>
+        <p>The thing nobody tells you about a managed Kubernetes setup is that it's only managed up to a point. Past that point, you own a distributed system. We owned a distributed system that was running, generously, four containers worth of actual product code.</p>
+        <p>The breaking point came on a Sunday. A node-group autoscaler bug — <code>karpenter@0.34</code>, in case you're curious — started churning nodes every three minutes. Each new node spent ninety seconds pulling images. Pods stayed pending. Our API <strong>served 503s for forty-one minutes</strong> before someone got woken up.</p>
+
+        <blockquote>The thing we were paying for had failed in a way only the thing we were paying for could fail.</blockquote>
+
+        <h2 id="three-boring-boxes">Three boring boxes</h2>
+        <p>The replacement plan was simple, almost embarrassing:</p>
+        <ul>
+          <li>One physical server for the web tier (nginx + our Go binary)</li>
+          <li>Two physical servers in primary/replica for Postgres</li>
+          <li>Cloudflare in front for TLS, caching, and DDoS</li>
+        </ul>
+        <p>We picked dedicated Hetzner boxes because the price was indecent and they ship with sane defaults. The whole topology fits on a napkin. The whole runbook fits in a single markdown file.</p>
+
+        <h3 id="the-deploy-script">The deploy script</h3>
+        <p>We replaced Argo, Flux, Helm, and a hand-rolled GitHub Actions workflow with this:</p>
+        <pre data-lang="bash"><code><span class="tok-c"># deploy.sh — replaces ~400 lines of yaml</span>
+<span class="tok-k">set</span> -euo pipefail
+GOOS=linux go build -o ./bin/api ./cmd/api
+<span class="tok-f">rsync</span> ./bin/api web-01:/srv/api/api.new
+ssh web-01 <span class="tok-s">"mv /srv/api/api{,.old} &amp;&amp; \
+                 mv /srv/api/api{.new,} &amp;&amp; \
+                 systemctl restart api"</span></code></pre>
+
+        <h2 id="what-broke">What broke</h2>
+        <p>Three things, in order of how much they cost us:</p>
+        <ol>
+          <li><strong>Postgres failover.</strong> Our first replica setup used streaming replication with manual promotion. The first real failure was at 2am on a Wednesday. The DBA was asleep. We lost twenty-six minutes. We now use Patroni and it has not failed us once in eight months.</li>
+          <li><strong>Email deliverability.</strong> Turns out Hetzner IPs have a reputation problem. We moved transactional email to a managed provider in the second week.</li>
+          <li><strong>Our own habits.</strong> We kept reaching for <code>kubectl</code>. The muscle memory took a month to retrain.</li>
+        </ol>
+
+        <h2 id="when-this-is-wrong">When this is wrong</h2>
+        <p>If you're running anything that needs to elastically scale ten-to-one in a few minutes, this doesn't work. If you have hundreds of services, this doesn't work. If your traffic is truly unpredictable, this doesn't work.</p>
+        <p>It worked for us because our actual workload — a couple thousand requests per second, two TB of data, a handful of jobs — fit comfortably on a single nineties-era idea of a server. Most workloads do. Most workloads aren't most workloads.</p>
+
+        <hr />
+        <p class="text-zinc-500 dark:text-zinc-400">If you liked this, you might like <a href="#">our piece on running Postgres on bare metal</a>, or the (somewhat less serious) <a href="#">case for boring tools in a vibe-coded world</a>.</p>
+      </article>
+
+      <aside data-toc class="hidden lg:block">
+        <div class="sticky top-24 text-[13px]">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">On this page</p>
+          <ul class="mt-3 flex flex-col gap-2.5 border-l border-zinc-950/10 pl-4 dark:border-white/10">
+            <li><a href="#the-old-stack" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">The old stack</a></li>
+            <li><a href="#the-breaking-point" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">The breaking point</a></li>
+            <li><a href="#three-boring-boxes" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">Three boring boxes</a></li>
+            <li class="pl-3"><a href="#the-deploy-script" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">The deploy script</a></li>
+            <li><a href="#what-broke" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">What broke</a></li>
+            <li><a href="#when-this-is-wrong" class="text-zinc-500 hover:text-zinc-950 data-[active=true]:text-led-cyan dark:text-zinc-400 dark:hover:text-white">When this is wrong</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Prev/Next -->
+    <nav class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-3 border-t border-zinc-950/10 pt-10 md:grid-cols-2 dark:border-white/10">
+      <a href="post.html" class="group block rounded-xl border border-zinc-950/10 p-5 transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">← Previous</span>
+        <p class="mt-2 font-display text-[15px] font-semibold leading-snug text-zinc-950 dark:text-white">Designing rate limits that don't lie</p>
+      </a>
+      <a href="post.html" class="group block rounded-xl border border-zinc-950/10 p-5 text-right transition hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+        <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Next →</span>
+        <p class="mt-2 font-display text-[15px] font-semibold leading-snug text-zinc-950 dark:text-white">Running Postgres on bare metal in 2026</p>
+      </a>
+    </nav>
+
+    <!-- Subscribe -->
+    <section class="subscribe-glow mx-auto mt-24 grid max-w-3xl grid-cols-1 gap-6 rounded-2xl border border-zinc-950/10 p-8 md:grid-cols-[1fr_auto] md:items-center dark:border-white/10">
+      <div>
+        <h3 class="font-display text-[1.25rem] font-semibold tracking-tight">Get the next one in your inbox.</h3>
+        <p class="mt-1 text-[0.92rem] text-zinc-500 dark:text-zinc-400">One post most Tuesdays. No tracking pixels.</p>
+      </div>
+      <div class="flex items-center gap-2 rounded-full border border-zinc-950/15 bg-white p-1.5 dark:border-white/15 dark:bg-zinc-900">
+        <input type="email" placeholder="you@domain.com" class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.9rem] placeholder:text-zinc-500 focus:outline-none dark:text-white" />
+        <button type="button" class="inline-flex rounded-full bg-zinc-950 px-4 py-2 text-[13px] font-semibold text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">Subscribe</button>
+      </div>
+    </section>
+
+    <footer class="mt-24 border-t border-zinc-950/10 py-10 text-center font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+      © 2026 LED Technica · <a href="pages.html" class="hover:text-zinc-950 dark:hover:text-white">All page designs →</a>
+    </footer>
+  </main>
+
+  <script src="shared.js"></script>
+</body>
+</html>

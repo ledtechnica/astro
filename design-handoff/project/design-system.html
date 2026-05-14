@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design System — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode:'class', theme:{ extend:{
+      fontFamily: { sans:['Geist','ui-sans-serif','system-ui'], display:['Geist','ui-sans-serif','system-ui'], mono:['Geist Mono','ui-monospace','monospace'] },
+      colors: { led: { pink:'#ec4673', yellow:'#f5c542', cyan:'#2dd4d4' } },
+    } } };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .anchor-offset { scroll-margin-top: 80px; }
+    .swatch { display: flex; flex-direction: column; gap: 6px; }
+    .swatch-chip { aspect-ratio: 1.6; border-radius: 10px; }
+    .swatch-meta { display: flex; justify-content: space-between; font-family: 'Geist Mono', monospace; font-size: 10.5px; }
+    /* sticky toc */
+    .toc-link[data-active="true"] { color: #ec4673; }
+    .dark .toc-link[data-active="true"] { color: #ec4673; }
+  </style>
+</head>
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <!-- ============================================================ NAVBAR ============================================================ -->
+  <header class="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-white/75 backdrop-blur-md dark:bg-zinc-950/75 dark:border-white/10">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+            <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+          </span>
+          <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+          <span class="ml-2 hidden font-mono text-[10.5px] uppercase tracking-[0.12em] text-zinc-500 dark:text-zinc-400 md:inline">/ design system</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Home</a></li>
+            <li><a href="pages.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">All pages</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-950 dark:text-white">Design system</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <div role="group" class="inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+          <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+          <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ MAIN ============================================================ -->
+  <div class="relative z-10 mx-auto max-w-7xl px-6 pt-28 lg:px-8">
+    <header class="border-b border-zinc-950/10 pb-12 dark:border-white/10">
+      <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">Design package · v1.0</span>
+      <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-balance max-w-3xl">Everything that makes LED Technica look like LED Technica.</h1>
+      <p class="mt-5 max-w-[60ch] text-[1.05rem] text-zinc-500 dark:text-zinc-400 text-pretty">A single-page reference for the tokens, components, and pages in this design package. Toggle the theme above to see every element in both light and dark. Built on Tailwind CSS with Catalyst-style component patterns — port directly into Astro.</p>
+      <div class="mt-6 flex flex-wrap gap-2 font-mono text-[11px]">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 text-zinc-500 dark:border-white/10 dark:text-zinc-400">Tailwind 3.x</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 text-zinc-500 dark:border-white/10 dark:text-zinc-400">Catalyst patterns</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 text-zinc-500 dark:border-white/10 dark:text-zinc-400">darkMode: class</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 text-zinc-500 dark:border-white/10 dark:text-zinc-400">Astro-ready</span>
+      </div>
+    </header>
+
+    <!-- two column layout: sticky TOC + content -->
+    <div class="grid grid-cols-1 gap-12 pt-12 lg:grid-cols-[200px_1fr]">
+      <!-- TOC -->
+      <aside class="hidden lg:block">
+        <nav class="sticky top-24">
+          <p class="font-mono text-[10.5px] font-semibold uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Sections</p>
+          <ul data-toc class="mt-4 flex flex-col gap-2.5 border-l border-zinc-950/10 pl-4 text-[13px] dark:border-white/10">
+            <li><a href="#foundations" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Foundations</a></li>
+            <li><a href="#color" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Color</a></li>
+            <li><a href="#type" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Typography</a></li>
+            <li><a href="#spacing" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Spacing & radius</a></li>
+            <li><a href="#logo" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Logo</a></li>
+            <li><a href="#buttons" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Buttons</a></li>
+            <li><a href="#forms" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Forms</a></li>
+            <li><a href="#tags" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Tags & badges</a></li>
+            <li><a href="#cards" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Cards</a></li>
+            <li><a href="#prose" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Prose & code</a></li>
+            <li><a href="#nav" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Navigation</a></li>
+            <li><a href="#pages" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Pages</a></li>
+            <li><a href="#motion" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Motion</a></li>
+            <li><a href="#astro" class="toc-link text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Astro notes</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="min-w-0 space-y-24">
+
+        <!-- ============== FOUNDATIONS ============== -->
+        <section id="foundations" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">01 — Foundations</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Brand DNA</span>
+          </div>
+          <p class="mt-6 max-w-[60ch] text-zinc-500 dark:text-zinc-400">The blog is named for an LED. Three colored bulbs on a black field. The design system carries that idea forward: a quiet, neutral surface (zinc) with three accent LEDs (pink, yellow, cyan) used <em>functionally</em> — each maps to a category of post so the color tells you what kind of article you're looking at.</p>
+          <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div class="rounded-2xl border border-zinc-950/10 p-5 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-pink">Quiet by default</p>
+              <p class="mt-2 text-[14px] text-zinc-700 dark:text-zinc-300">Neutral zinc canvas. The page is mostly black and white. Color only appears when it carries meaning.</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 p-5 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-yellow">Functional accent</p>
+              <p class="mt-2 text-[14px] text-zinc-700 dark:text-zinc-300">Each LED maps to a post category. The dots aren't decoration — they're the legend.</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 p-5 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-cyan">Technical voice</p>
+              <p class="mt-2 text-[14px] text-zinc-700 dark:text-zinc-300">Monospaced metadata, generous line length, no breathy filler. The design respects the reader's time.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== COLOR ============== -->
+        <section id="color" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">02 — Color</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">3 accents + zinc scale</span>
+          </div>
+
+          <h3 class="mt-8 font-display text-[1.1rem] font-semibold tracking-tight">LED accents</h3>
+          <p class="mt-1 text-[14px] text-zinc-500 dark:text-zinc-400">The same hex values are used in both light and dark mode. Their function is mapped below.</p>
+          <div class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="swatch">
+              <div class="swatch-chip bg-led-pink shadow-[0_0_40px_-8px_#ec4673]"></div>
+              <div class="swatch-meta"><span class="text-zinc-950 dark:text-white">led-pink</span><span class="text-zinc-500 dark:text-zinc-400">#ec4673</span></div>
+              <p class="font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">infra · security · opinion · pinned</p>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip bg-led-yellow shadow-[0_0_40px_-8px_#f5c542]"></div>
+              <div class="swatch-meta"><span class="text-zinc-950 dark:text-white">led-yellow</span><span class="text-zinc-500 dark:text-zinc-400">#f5c542</span></div>
+              <p class="font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">performance · postgres · tools</p>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip bg-led-cyan shadow-[0_0_40px_-8px_#2dd4d4]"></div>
+              <div class="swatch-meta"><span class="text-zinc-950 dark:text-white">led-cyan</span><span class="text-zinc-500 dark:text-zinc-400">#2dd4d4</span></div>
+              <p class="font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">cloud · api · databases · eyebrows</p>
+            </div>
+          </div>
+
+          <h3 class="mt-10 font-display text-[1.1rem] font-semibold tracking-tight">Neutrals — Tailwind <code class="font-mono text-[0.85em]">zinc</code></h3>
+          <p class="mt-1 text-[14px] text-zinc-500 dark:text-zinc-400">Surface, text, and borders all come from this single scale. Light mode uses 50 → 950; dark mode flips.</p>
+          <div class="mt-5 grid grid-cols-5 gap-2 sm:grid-cols-10">
+            <div class="swatch"><div class="swatch-chip bg-zinc-50 ring-1 ring-zinc-950/10"></div><span class="font-mono text-[10px] text-zinc-500">50</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-100"></div><span class="font-mono text-[10px] text-zinc-500">100</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-200"></div><span class="font-mono text-[10px] text-zinc-500">200</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-300"></div><span class="font-mono text-[10px] text-zinc-500">300</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-400"></div><span class="font-mono text-[10px] text-zinc-500">400</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-500"></div><span class="font-mono text-[10px] text-zinc-500">500</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-600"></div><span class="font-mono text-[10px] text-zinc-500">600</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-700"></div><span class="font-mono text-[10px] text-zinc-500">700</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-800"></div><span class="font-mono text-[10px] text-zinc-500">800</span></div>
+            <div class="swatch"><div class="swatch-chip bg-zinc-950"></div><span class="font-mono text-[10px] text-zinc-500">950</span></div>
+          </div>
+
+          <h3 class="mt-10 font-display text-[1.1rem] font-semibold tracking-tight">Semantic mapping</h3>
+          <div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div class="overflow-hidden rounded-xl border border-zinc-950/10 dark:border-white/10">
+              <div class="border-b border-zinc-950/10 bg-zinc-50 px-4 py-2 dark:border-white/10 dark:bg-zinc-900"><span class="font-mono text-[11px] uppercase tracking-[0.1em] text-zinc-950 dark:text-white">Light</span></div>
+              <table class="w-full font-mono text-[12px]">
+                <tbody class="divide-y divide-zinc-950/5 dark:divide-white/5">
+                  <tr><td class="px-4 py-2 text-zinc-500">surface</td><td class="px-4 py-2 text-right">bg-white</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">text</td><td class="px-4 py-2 text-right">text-zinc-950</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">text-muted</td><td class="px-4 py-2 text-right">text-zinc-500</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">border</td><td class="px-4 py-2 text-right">border-zinc-950/10</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">selection</td><td class="px-4 py-2 text-right">bg-led-yellow</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-zinc-950/10 dark:border-white/10">
+              <div class="border-b border-zinc-950/10 bg-zinc-50 px-4 py-2 dark:border-white/10 dark:bg-zinc-900"><span class="font-mono text-[11px] uppercase tracking-[0.1em] text-zinc-950 dark:text-white">Dark</span></div>
+              <table class="w-full font-mono text-[12px]">
+                <tbody class="divide-y divide-zinc-950/5 dark:divide-white/5">
+                  <tr><td class="px-4 py-2 text-zinc-500">surface</td><td class="px-4 py-2 text-right">bg-zinc-950</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">text</td><td class="px-4 py-2 text-right">text-white</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">text-muted</td><td class="px-4 py-2 text-right">text-zinc-400</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">border</td><td class="px-4 py-2 text-right">border-white/10</td></tr>
+                  <tr><td class="px-4 py-2 text-zinc-500">selection</td><td class="px-4 py-2 text-right">bg-led-yellow</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== TYPE ============== -->
+        <section id="type" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">03 — Typography</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Geist + Geist Mono</span>
+          </div>
+          <p class="mt-6 max-w-[60ch] text-zinc-500 dark:text-zinc-400">One sans family for everything visible; mono for metadata, code, and labels. Self-host both via <code class="font-mono text-[0.85em] rounded bg-zinc-100 px-1.5 py-0.5 dark:bg-zinc-800">@fontsource-variable/geist</code> in the production Astro build.</p>
+
+          <div class="mt-8 space-y-6">
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <div class="flex items-baseline justify-between">
+                <p class="font-display text-[3rem] font-semibold leading-[1.05] tracking-[-0.03em]">Notes from the rack room.</p>
+                <span class="font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">Display · 600 · 48/52</span>
+              </div>
+              <p class="mt-2 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Used for h1 on home and article pages.</p>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <div class="flex items-baseline justify-between">
+                <p class="font-display text-[1.55rem] font-semibold leading-tight tracking-tight">Designing rate limits that don't lie</p>
+                <span class="font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">Headline · 600 · 25/29</span>
+              </div>
+              <p class="mt-2 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Article cards, h2 in posts.</p>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-display text-[1.4rem] font-semibold tracking-[-0.022em]">A small love letter to systemd timers</p>
+              <p class="mt-2 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Post row title · 600 · 22/27</p>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="text-[1.075rem] leading-[1.78] text-zinc-700 dark:text-zinc-300 max-w-[60ch]">Body copy lives at <strong class="font-semibold">17.2px / 30.5px</strong>. Line length is constrained to a 680-pixel reading column. Body uses <code class="font-mono text-[0.88em] rounded bg-zinc-100 px-1.5 dark:bg-zinc-800">text-pretty</code> for ragged-right balancing and reserves <strong class="font-semibold">600 weight</strong> for emphasis within prose.</p>
+              <p class="mt-3 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Body · 400 · 17/30</p>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-led-cyan">Eyebrow · 600 mono · 11/auto · 0.12em tracking</p>
+              <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 28, 2026 · 9 min · #42</p>
+              <p class="mt-2 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Mono is for metadata, eyebrows, and feed counters. Always uppercased with letter-spacing.</p>
+            </div>
+          </div>
+
+          <h3 class="mt-10 font-display text-[1.1rem] font-semibold tracking-tight">Type scale reference</h3>
+          <div class="mt-4 overflow-hidden rounded-xl border border-zinc-950/10 dark:border-white/10">
+            <table class="w-full font-mono text-[12px]">
+              <thead class="border-b border-zinc-950/10 bg-zinc-50 dark:border-white/10 dark:bg-zinc-900">
+                <tr class="text-left">
+                  <th class="px-4 py-2 font-medium text-zinc-950 dark:text-white">Token</th>
+                  <th class="px-4 py-2 font-medium text-zinc-950 dark:text-white">Size</th>
+                  <th class="px-4 py-2 font-medium text-zinc-950 dark:text-white">Weight</th>
+                  <th class="px-4 py-2 font-medium text-zinc-950 dark:text-white">Use</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-950/5 dark:divide-white/5">
+                <tr><td class="px-4 py-2">h1 · display-2xl</td><td class="px-4 py-2">clamp(2.4rem, 5vw, 3.6rem)</td><td class="px-4 py-2">600</td><td class="px-4 py-2 text-zinc-500">Home hero, article title</td></tr>
+                <tr><td class="px-4 py-2">h2 · display-lg</td><td class="px-4 py-2">1.55rem</td><td class="px-4 py-2">600</td><td class="px-4 py-2 text-zinc-500">Section heads in prose</td></tr>
+                <tr><td class="px-4 py-2">h3 · display-md</td><td class="px-4 py-2">1.4rem</td><td class="px-4 py-2">600</td><td class="px-4 py-2 text-zinc-500">Post row titles</td></tr>
+                <tr><td class="px-4 py-2">body</td><td class="px-4 py-2">1.075rem</td><td class="px-4 py-2">400</td><td class="px-4 py-2 text-zinc-500">Article paragraphs</td></tr>
+                <tr><td class="px-4 py-2">ui</td><td class="px-4 py-2">14px</td><td class="px-4 py-2">500</td><td class="px-4 py-2 text-zinc-500">Nav, buttons, form controls</td></tr>
+                <tr><td class="px-4 py-2">caption</td><td class="px-4 py-2">12-13px</td><td class="px-4 py-2">400</td><td class="px-4 py-2 text-zinc-500">Footer, helper text</td></tr>
+                <tr><td class="px-4 py-2">eyebrow · mono</td><td class="px-4 py-2">11px</td><td class="px-4 py-2">600</td><td class="px-4 py-2 text-zinc-500">Date, byline, section labels</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============== SPACING ============== -->
+        <section id="spacing" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">04 — Spacing & radius</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Tailwind defaults</span>
+          </div>
+
+          <h3 class="mt-8 font-display text-[1.1rem] font-semibold tracking-tight">Container widths</h3>
+          <div class="mt-4 space-y-3">
+            <div>
+              <div class="h-10 max-w-3xl rounded-md bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">max-w-3xl · 768px · Subscribe / search inputs</p>
+            </div>
+            <div>
+              <div class="h-10 max-w-4xl rounded-md bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">max-w-4xl · 896px · Article body + hero figure</p>
+            </div>
+            <div>
+              <div class="h-10 max-w-6xl rounded-md bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">max-w-6xl · 1152px · Home, archive, navbar</p>
+            </div>
+          </div>
+
+          <h3 class="mt-10 font-display text-[1.1rem] font-semibold tracking-tight">Radius scale</h3>
+          <div class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
+            <div class="text-center">
+              <div class="aspect-square w-full rounded-md bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-2 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">md · 6px<br/>tags, inputs</p>
+            </div>
+            <div class="text-center">
+              <div class="aspect-square w-full rounded-lg bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-2 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">lg · 8px<br/>buttons</p>
+            </div>
+            <div class="text-center">
+              <div class="aspect-square w-full rounded-xl bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-2 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">xl · 12px<br/>code blocks</p>
+            </div>
+            <div class="text-center">
+              <div class="aspect-square w-full rounded-2xl bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-2 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">2xl · 16px<br/>cards, panels</p>
+            </div>
+            <div class="text-center">
+              <div class="aspect-square w-full rounded-full bg-zinc-100 dark:bg-zinc-800"></div>
+              <p class="mt-2 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">full<br/>chips, avatar</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== LOGO ============== -->
+        <section id="logo" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">05 — Logo</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">2 states + hero treatment</span>
+          </div>
+          <p class="mt-6 max-w-[60ch] text-zinc-500 dark:text-zinc-400">The white-on-transparent mark sits inside a dark circular plate. On the home page it appears huge in the hero (un-lit by default; LEDs glow on hover) then animates into the navbar as the user scrolls. Everywhere else it's the small plated mark.</p>
+
+          <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div class="rounded-2xl border border-zinc-950/10 bg-zinc-50 p-8 text-center dark:border-white/10 dark:bg-zinc-900/50">
+              <div class="relative mx-auto grid size-32 place-items-center rounded-full bg-black shadow-[0_0_0_1px_rgba(255,255,255,.06),0_6px_18px_rgba(0,0,0,.25)]">
+                <img src="assets/led-technica-white.png" alt="" class="size-28 rounded-full object-contain" style="filter: saturate(1.35) contrast(1.08) brightness(1.05);" />
+              </div>
+              <p class="mt-5 font-display text-[14px] font-semibold">Default · powered on</p>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">saturated LEDs · subtle lift</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 bg-zinc-50 p-8 text-center dark:border-white/10 dark:bg-zinc-900/50">
+              <div class="relative mx-auto grid size-32 place-items-center rounded-full bg-black shadow-[0_0_0_1px_rgba(255,255,255,.06),0_0_0_5px_rgba(245,197,66,.28),0_0_28px_6px_rgba(245,197,66,.55),0_0_70px_14px_rgba(245,197,66,.35)]">
+                <img src="assets/led-technica-white.png" alt="" class="size-28 rounded-full object-contain" style="filter: saturate(1.35) contrast(1.08) brightness(1.05);" />
+              </div>
+              <p class="mt-5 font-display text-[14px] font-semibold">Hover · yellow halo</p>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">single-color glow · disc + logo untouched</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 bg-zinc-50 p-8 text-center dark:border-white/10 dark:bg-zinc-900/50">
+              <div class="mx-auto flex h-32 items-center justify-center">
+                <div class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+                  <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+                </div>
+              </div>
+              <p class="mt-5 font-display text-[14px] font-semibold">Navbar · 36px</p>
+              <p class="mt-1 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">no glow · 1px ring</p>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-zinc-950/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-zinc-900/40">
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Rules</p>
+            <ul class="mt-3 grid gap-2 text-[14px] text-zinc-700 dark:text-zinc-300 sm:grid-cols-2">
+              <li>• Always keep the dark plate. The white mark needs the black field to read like an LED display.</li>
+              <li>• Hero treatment: 168px diameter, ground halo behind, hover lights LEDs.</li>
+              <li>• Navbar treatment: 36-38px diameter, no halo, hairline ring.</li>
+              <li>• Don't apply the conic halo to the navbar mark — too much chrome.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ============== BUTTONS ============== -->
+        <section id="buttons" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">06 — Buttons</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Primary · Secondary · Icon</span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Primary</p>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <button class="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-3.5 py-2 text-sm/5 font-semibold text-white shadow-sm ring-1 ring-zinc-950/10 transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:ring-white/20 dark:hover:bg-zinc-200">Subscribe<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                <button class="inline-flex items-center gap-2 rounded-lg bg-zinc-950 px-4 py-2 text-[13px] font-semibold text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">Submit</button>
+              </div>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-3 text-[11px] text-zinc-300"><code>bg-zinc-950 text-white
+dark:bg-white dark:text-zinc-950</code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Secondary</p>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <button class="inline-flex items-center gap-2 rounded-lg bg-transparent px-3.5 py-2 text-sm/5 font-semibold text-zinc-950 ring-1 ring-zinc-950/15 transition hover:bg-zinc-950/5 dark:text-white dark:ring-white/15 dark:hover:bg-white/5">Browse archive</button>
+                <button class="inline-flex items-center gap-2 rounded-lg bg-transparent px-4 py-2 text-sm/5 font-semibold text-zinc-950 ring-1 ring-zinc-950/15 transition hover:bg-zinc-950/5 dark:text-white dark:ring-white/15 dark:hover:bg-white/5">See all 128 posts<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              </div>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-3 text-[11px] text-zinc-300"><code>bg-transparent ring-1 ring-zinc-950/15
+text-zinc-950 dark:text-white</code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Icon</p>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <button aria-label="Search" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+                <button aria-label="RSS" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 hover:bg-zinc-950/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"><svg viewBox="0 0 24 24" fill="currentColor" class="size-4"><path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg></button>
+              </div>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-3 text-[11px] text-zinc-300"><code>size-9 rounded-md text-zinc-500
+hover:bg-zinc-950/5</code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Theme toggle (segmented)</p>
+              <div class="mt-4 inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+                <button class="grid size-7 place-items-center rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+                <button class="grid size-7 place-items-center rounded-full text-zinc-500 dark:text-zinc-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+                <button class="grid size-7 place-items-center rounded-full text-zinc-500 dark:text-zinc-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+              </div>
+              <p class="mt-3 font-mono text-[11px] text-zinc-500 dark:text-zinc-400">Persisted via <code>localStorage('ledtechnica:theme')</code></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== FORMS ============== -->
+        <section id="forms" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">07 — Forms</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Pill + boxed</span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Pill (subscribe)</p>
+              <div class="mt-4 flex items-center gap-2 rounded-full border border-zinc-950/15 bg-white p-1.5 dark:border-white/15 dark:bg-zinc-900">
+                <input type="email" placeholder="you@domain.com" class="min-w-0 flex-1 border-0 bg-transparent px-3 text-[0.95rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none dark:text-white dark:placeholder:text-zinc-500" />
+                <button type="button" class="inline-flex items-center gap-1.5 rounded-full bg-zinc-950 px-4 py-2 text-sm/5 font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">Subscribe</button>
+              </div>
+              <p class="mt-3 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">Inline button. No labels. Used in subscribe hero + footer.</p>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Boxed (search)</p>
+              <div class="mt-4 flex items-center gap-3 rounded-xl border border-zinc-950/15 bg-white px-5 py-4 shadow-sm dark:border-white/15 dark:bg-zinc-900/60">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-5 text-zinc-500"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input type="text" placeholder="Search posts…" class="flex-1 border-0 bg-transparent text-[1.1rem] text-zinc-950 placeholder:text-zinc-500 focus:outline-none dark:text-white" />
+                <kbd class="rounded border border-zinc-950/10 bg-zinc-50 px-2 py-0.5 font-mono text-[11px] text-zinc-500 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">⌘K</kbd>
+              </div>
+              <p class="mt-3 font-mono text-[10.5px] text-zinc-500 dark:text-zinc-400">Used on /search. Bigger type, more padding, keyboard hint.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== TAGS ============== -->
+        <section id="tags" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">08 — Tags & badges</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Color-coded by category</span>
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Tag pill — outline</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>infra</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>postgres</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>security</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>performance</span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2.5 py-1 font-mono text-[11px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>api</span>
+            </div>
+
+            <p class="mt-8 font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Tag pill — active (selected)</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="#" class="inline-flex items-center gap-1.5 rounded-full bg-zinc-950 px-3 py-1.5 font-mono text-[11px] font-medium text-white dark:bg-white dark:text-zinc-950">All <span class="opacity-60">128</span></a>
+              <a href="#" class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-3 py-1.5 font-mono text-[11px] font-medium text-zinc-500 hover:text-zinc-950 dark:border-white/10 dark:text-zinc-400 dark:hover:text-white"><span class="size-1.5 rounded-full bg-led-pink shadow-[0_0_6px_#ec4673]"></span>infra <span class="opacity-60">32</span></a>
+            </div>
+
+            <p class="mt-8 font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Pinned-post flag</p>
+            <div class="mt-4">
+              <span class="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-led-pink">
+                <span class="size-2 rounded-full bg-led-pink shadow-[0_0_10px_#ec4673]"></span>
+                Pinned · Featured
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== CARDS ============== -->
+        <section id="cards" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">09 — Cards</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Article, feed, RSS</span>
+          </div>
+
+          <h3 class="mt-8 font-display text-[1.1rem] font-semibold tracking-tight">Post row (article list)</h3>
+          <ul class="mt-4 overflow-hidden rounded-2xl border border-zinc-950/10 dark:border-white/10">
+            <li class="grid grid-cols-1 gap-2 border-b border-zinc-950/10 px-6 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline dark:border-white/10">
+              <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 28, 2026</span>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em]"><a href="#" class="headline-link">Designing rate limits that don't lie</a></h3>
+                <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400">Most rate limiters fail closed in confusing ways. Here's a tiered token-bucket design that fails open for read traffic.</p>
+                <div class="mt-1 flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>api</span>
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-yellow shadow-[0_0_6px_#f5c542]"></span>reliability</span>
+                </div>
+              </div>
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">9 min · #42</span>
+            </li>
+            <li class="grid grid-cols-1 gap-2 px-6 py-7 md:grid-cols-[110px_1fr_auto] md:gap-8 md:items-baseline">
+              <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400">Apr 21, 2026</span>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-display text-[1.4rem] font-semibold tracking-[-0.022em]"><a href="#" class="headline-link">S3 Express One Zone: real numbers</a></h3>
+                <p class="max-w-[62ch] text-[0.96rem] text-zinc-500 dark:text-zinc-400">We moved 40 TB of hot intermediate data off standard S3. Latency dropped, costs surprised us.</p>
+                <div class="mt-1 flex flex-wrap gap-2">
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-zinc-950/10 px-2 py-0.5 font-mono text-[10.5px] font-medium text-zinc-500 dark:border-white/10 dark:text-zinc-400"><span class="size-1.5 rounded-full bg-led-cyan shadow-[0_0_6px_#2dd4d4]"></span>cloud</span>
+                </div>
+              </div>
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.06em] text-zinc-500 dark:text-zinc-400 md:text-right">11 min · #41</span>
+            </li>
+          </ul>
+
+          <h3 class="mt-10 font-display text-[1.1rem] font-semibold tracking-tight">Feed card (RSS / subscribe)</h3>
+          <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <div class="flex items-center gap-3">
+                <span class="grid size-9 place-items-center rounded-xl bg-led-pink/15"><svg viewBox="0 0 24 24" fill="currentColor" class="size-4 text-led-pink"><path d="M4 4v3a13 13 0 0 1 13 13h3A16 16 0 0 0 4 4Zm0 7v3a6 6 0 0 1 6 6h3a9 9 0 0 0-9-9Zm2.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg></span>
+                <h3 class="font-display text-[1.05rem] font-semibold">RSS</h3>
+              </div>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Full-text RSS 2.0. Works with NetNewsWire, Feedbin, Reeder.</p>
+              <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">/feed.xml</code>
+            </div>
+            <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <div class="flex items-center gap-3">
+                <span class="grid size-9 place-items-center rounded-xl bg-led-yellow/15"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4 text-led-yellow"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+                <h3 class="font-display text-[1.05rem] font-semibold">Atom</h3>
+              </div>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Atom 1.0 with full content.</p>
+              <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">/feed.atom</code>
+            </div>
+            <div class="flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <div class="flex items-center gap-3">
+                <span class="grid size-9 place-items-center rounded-xl bg-led-cyan/15"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4 text-led-cyan"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span>
+                <h3 class="font-display text-[1.05rem] font-semibold">JSON Feed</h3>
+              </div>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">JSON Feed 1.1 for indie readers.</p>
+              <code class="overflow-hidden text-ellipsis whitespace-nowrap rounded-md border border-zinc-950/10 bg-zinc-50 px-3 py-2 font-mono text-[11px] text-zinc-600 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-400">/feed.json</code>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== PROSE ============== -->
+        <section id="prose" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">10 — Prose & code</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Reading column</span>
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-zinc-950/10 p-8 dark:border-white/10">
+            <article class="prose-led max-w-[640px] text-zinc-700 dark:text-zinc-300">
+              <h2 id="ds-prose-h2" class="font-display !mt-0">An h2 inside the article body</h2>
+              <p>Body paragraphs read at 17.2 pixels and 30.5 pixels of leading. <strong>Bold text</strong> picks up the foreground color. <a href="#" class="font-medium">Inline links</a> get an underline on hover that grows out from the left.</p>
+              <p>A second paragraph keeps the rhythm. Inline code looks like <code>kubectl get pods</code> and reads at 0.88em on a soft background plate.</p>
+              <blockquote>The thing we were paying for had failed in a way only the thing we were paying for could fail.</blockquote>
+              <pre data-lang="bash"><code><span class="tok-c"># deploy.sh — replaces ~400 lines of yaml</span>
+<span class="tok-k">set</span> -euo pipefail
+GOOS=linux go build -o ./bin/api ./cmd/api
+<span class="tok-f">rsync</span> ./bin/api web-01:/srv/api/api.new</code></pre>
+              <ul>
+                <li>One physical server for the web tier</li>
+                <li>Two physical servers in primary/replica for Postgres</li>
+                <li>Cloudflare in front for TLS, caching, and DDoS</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="rounded-xl border border-zinc-950/10 p-4 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Syntax tokens</p>
+              <div class="mt-3 grid grid-cols-2 gap-2 font-mono text-[12px]">
+                <div class="flex items-center gap-2"><span class="size-3 rounded-sm bg-led-pink"></span><span class="text-zinc-500 dark:text-zinc-400">keyword <code>.tok-k</code></span></div>
+                <div class="flex items-center gap-2"><span class="size-3 rounded-sm bg-led-yellow"></span><span class="text-zinc-500 dark:text-zinc-400">string <code>.tok-s</code></span></div>
+                <div class="flex items-center gap-2"><span class="size-3 rounded-sm bg-led-cyan"></span><span class="text-zinc-500 dark:text-zinc-400">function <code>.tok-f</code></span></div>
+                <div class="flex items-center gap-2"><span class="size-3 rounded-sm bg-zinc-600"></span><span class="text-zinc-500 dark:text-zinc-400">comment <code>.tok-c</code></span></div>
+              </div>
+            </div>
+            <div class="rounded-xl border border-zinc-950/10 p-4 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Blockquote rule</p>
+              <p class="mt-3 text-[13px] text-zinc-700 dark:text-zinc-300">3px <code class="font-mono">led-cyan</code> left border, italic, 1.12rem.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== NAVIGATION ============== -->
+        <section id="nav" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">11 — Navigation</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Sticky chrome</span>
+          </div>
+
+          <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-950/10 dark:border-white/10">
+            <div class="flex items-center justify-between gap-6 border-b border-zinc-950/10 bg-white/75 px-6 py-3 backdrop-blur dark:border-white/10 dark:bg-zinc-950/75">
+              <div class="flex items-center gap-8">
+                <div class="flex items-center gap-2.5">
+                  <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+                    <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+                  </span>
+                  <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+                </div>
+                <nav class="hidden md:block">
+                  <ul class="flex items-center gap-1">
+                    <li><a href="#" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-950 dark:text-white">Latest</a></li>
+                    <li><a href="#" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+                    <li><a href="#" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">About</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="flex items-center gap-2">
+                <button aria-label="Search" class="inline-grid size-9 place-items-center rounded-md text-zinc-500 dark:text-zinc-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+              </div>
+            </div>
+            <div class="bg-zinc-50 px-6 py-3 dark:bg-zinc-900/30">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Navbar · light + dark · 60px tall · backdrop-blur</p>
+            </div>
+          </div>
+
+          <p class="mt-6 max-w-[60ch] text-[14px] text-zinc-500 dark:text-zinc-400">On the home page the navbar slides in from <code class="font-mono text-[0.85em]">-translate-y-full</code> once the user scrolls past the hero logo. Other pages render it always-pinned.</p>
+        </section>
+
+        <!-- ============== PAGES ============== -->
+        <section id="pages" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">12 — Pages in this package</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">7 templates</span>
+          </div>
+
+          <ul class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <li><a href="index.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">01 · Home</span><span class="size-2 rounded-full bg-led-pink shadow-[0_0_8px_#ec4673]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Article list</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Glowing logo centered, scroll-morph into navbar. Featured + 7 latest.</p>
+            </a></li>
+            <li><a href="post.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">02 · Post</span><span class="size-2 rounded-full bg-led-yellow shadow-[0_0_8px_#f5c542]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Single article</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Reading column + sticky TOC scrollspy + syntax-highlighted code.</p>
+            </a></li>
+            <li><a href="about.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">03 · About</span><span class="size-2 rounded-full bg-led-cyan shadow-[0_0_8px_#2dd4d4]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">About the author</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Sticky author card with stats + long-form bio.</p>
+            </a></li>
+            <li><a href="archive.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">04 · Archive</span><span class="size-2 rounded-full bg-led-pink shadow-[0_0_8px_#ec4673]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Year-grouped archive</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Tag filter, year jump, dense post-row layout.</p>
+            </a></li>
+            <li><a href="search.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">05 · Search</span><span class="size-2 rounded-full bg-led-yellow shadow-[0_0_8px_#f5c542]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Full-text search</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">⌘K input, highlighted matches, tag suggestions.</p>
+            </a></li>
+            <li><a href="subscribe.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">06 · Subscribe</span><span class="size-2 rounded-full bg-led-cyan shadow-[0_0_8px_#2dd4d4]"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Subscribe / RSS hub</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Email hero + RSS / Atom / JSON / Mastodon cards.</p>
+            </a></li>
+            <li><a href="404.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+              <div class="flex items-baseline justify-between"><span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">07 · 404</span><span class="size-2 rounded-full bg-zinc-400"></span></div>
+              <h3 class="font-display text-[1.05rem] font-semibold tracking-tight">Page not found</h3>
+              <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Three LEDs, middle one burnt out. Gradient code.</p>
+            </a></li>
+          </ul>
+        </section>
+
+        <!-- ============== MOTION ============== -->
+        <section id="motion" class="anchor-offset">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">13 — Motion</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Restrained, persistent</span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-pink">Hero logo scroll</p>
+              <h3 class="mt-2 font-display text-[1rem] font-semibold">Center → navbar</h3>
+              <p class="mt-2 text-[13px] text-zinc-500 dark:text-zinc-400">JS interpolates position + size based on how far the hero is scrolled out of viewport. 168px → 38px. <code class="font-mono text-[0.85em]">cubic-bezier(.22,.61,.36,1)</code></p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-yellow">Logo LEDs</p>
+              <h3 class="mt-2 font-display text-[1rem] font-semibold">Powered on → bloom on hover</h3>
+              <p class="mt-2 text-[13px] text-zinc-500 dark:text-zinc-400">Default state is fully colored. On hover, a conic-gradient halo fades in (14s linear spin) and multi-color drop-shadows simulate LED light hitting the surface. Respects <code class="font-mono text-[0.85em]">prefers-reduced-motion</code>.</p>
+            </div>
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-led-cyan">Headline underline</p>
+              <h3 class="mt-2 font-display text-[1rem] font-semibold">Grow from left</h3>
+              <p class="mt-2 text-[13px] text-zinc-500 dark:text-zinc-400">Background-image linear-gradient with animated <code class="font-mono text-[0.85em]">background-size</code> from <code class="font-mono text-[0.85em]">0 → 100%</code> on hover. .35s.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============== ASTRO ============== -->
+        <section id="astro" class="anchor-offset pb-16">
+          <div class="flex items-baseline justify-between border-b border-zinc-950/10 pb-3 dark:border-white/10">
+            <h2 class="font-display text-[1.6rem] font-semibold tracking-tight">14 — Notes for the Astro port</h2>
+            <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 dark:text-zinc-400">Stack-specific</span>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Tailwind config</p>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-4 text-[11.5px] leading-relaxed text-zinc-300"><code><span class="tok-c">// tailwind.config.mjs</span>
+<span class="tok-k">export default</span> {
+  darkMode: <span class="tok-s">'class'</span>,
+  theme: {
+    extend: {
+      fontFamily: {
+        sans:    [<span class="tok-s">'Geist Variable'</span>, ...],
+        display: [<span class="tok-s">'Geist Variable'</span>, ...],
+        mono:    [<span class="tok-s">'Geist Mono Variable'</span>, ...],
+      },
+      colors: {
+        led: {
+          pink:   <span class="tok-s">'#ec4673'</span>,
+          yellow: <span class="tok-s">'#f5c542'</span>,
+          cyan:   <span class="tok-s">'#2dd4d4'</span>,
+        },
+      },
+    },
+  },
+}</code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">FOUC-free theme script</p>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-4 text-[11.5px] leading-relaxed text-zinc-300"><code><span class="tok-c">&lt;!-- ThemeScript.astro · in &lt;head&gt; --&gt;</span>
+<span class="tok-k">&lt;script is:inline&gt;</span>
+  <span class="tok-k">const</span> t = localStorage.getItem(<span class="tok-s">'ledtechnica:theme'</span>)
+         || <span class="tok-s">'system'</span>;
+  <span class="tok-k">const</span> dark = t === <span class="tok-s">'dark'</span>
+    || (t === <span class="tok-s">'system'</span>
+      &amp;&amp; matchMedia(<span class="tok-s">'(prefers-color-scheme: dark)'</span>)
+           .matches);
+  document.documentElement.classList.toggle(<span class="tok-s">'dark'</span>, dark);
+<span class="tok-k">&lt;/script&gt;</span></code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10 md:col-span-2">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Recommended layout</p>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-4 text-[11.5px] leading-relaxed text-zinc-300"><code>src/
+  layouts/
+    BaseLayout.astro       <span class="tok-c">// head, ThemeScript, Navbar, Footer</span>
+    PostLayout.astro       <span class="tok-c">// adds TOC + scrollspy</span>
+  components/
+    Navbar.astro
+    Footer.astro
+    ThemeToggle.astro
+    Logo.astro             <span class="tok-c">// the LED mark + hero/nav modes</span>
+    Tag.astro              <span class="tok-c">// {color: 'pink' | 'yellow' | 'cyan'}</span>
+    SubscribeForm.astro
+  pages/
+    index.astro            <span class="tok-c">// home with floating logo</span>
+    archive.astro
+    about.astro
+    search.astro
+    subscribe.astro
+    posts/[slug].astro     <span class="tok-c">// content collection</span>
+    404.astro
+  content/posts/*.mdx
+  styles/global.css        <span class="tok-c">// the contents of shared.css</span></code></pre>
+            </div>
+
+            <div class="rounded-2xl border border-zinc-950/10 p-6 dark:border-white/10 md:col-span-2">
+              <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Tag → color map (Astro component prop)</p>
+              <pre class="mt-4 overflow-x-auto rounded-md bg-zinc-950 p-4 text-[11.5px] leading-relaxed text-zinc-300"><code><span class="tok-k">const</span> tagColor = {
+  infra: <span class="tok-s">'pink'</span>, security: <span class="tok-s">'pink'</span>, opinion: <span class="tok-s">'pink'</span>, meta: <span class="tok-s">'pink'</span>,
+  postgres: <span class="tok-s">'yellow'</span>, performance: <span class="tok-s">'yellow'</span>, tools: <span class="tok-s">'yellow'</span>,
+  debugging: <span class="tok-s">'yellow'</span>, edge: <span class="tok-s">'yellow'</span>, languages: <span class="tok-s">'pink'</span>,
+  cloud: <span class="tok-s">'cyan'</span>, api: <span class="tok-s">'cyan'</span>, databases: <span class="tok-s">'cyan'</span>, aws: <span class="tok-s">'cyan'</span>,
+};</code></pre>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <footer class="mt-12 border-t border-zinc-950/10 py-10 text-center font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+      © 2026 LED Technica · Design system v1.0 · <a href="pages.html" class="hover:text-zinc-950 dark:hover:text-white">All pages →</a>
+    </footer>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    // scrollspy for the in-page TOC
+    (function(){
+      const links = document.querySelectorAll('[data-toc] a[href^="#"]');
+      if (!links.length) return;
+      const targets = [...links].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+      function spy() {
+        let active = targets[0];
+        for (const t of targets) if (t.getBoundingClientRect().top < 140) active = t;
+        links.forEach(a => a.dataset.active = String(a.getAttribute('href').slice(1) === (active?.id || '')));
+      }
+      spy();
+      window.addEventListener('scroll', spy, { passive: true });
+    })();
+  </script>
+</body>
+</html>

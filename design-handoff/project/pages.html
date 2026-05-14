@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All pages — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Geist','ui-sans-serif','system-ui'],display:['Geist','ui-sans-serif','system-ui'],mono:['Geist Mono','ui-monospace','monospace']},colors:{led:{pink:'#ec4673',yellow:'#f5c542',cyan:'#2dd4d4'}}}}};</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body class="min-h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+  <main class="relative z-10 mx-auto max-w-5xl px-6 py-16 lg:px-8">
+    <header class="flex items-center justify-between border-b border-zinc-950/10 pb-8 dark:border-white/10">
+      <div class="flex items-center gap-3">
+        <span class="grid size-12 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10"><img src="assets/led-technica-white.png" alt="" class="size-9 rounded-full object-contain" /></span>
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.1em] text-led-cyan">Design package</p>
+          <h1 class="mt-1 font-display text-[1.7rem] font-semibold tracking-tight">LED Technica — page designs</h1>
+        </div>
+      </div>
+      <div role="group" class="inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+        <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+        <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+        <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+      </div>
+    </header>
+
+    <p class="mt-8 max-w-2xl text-zinc-500 dark:text-zinc-400">
+      Seven pages, ready for an Astro port. Tailwind CSS with Catalyst-style component patterns, the three logo LEDs as functional accents (pink → infra/security, yellow → performance/postgres, cyan → cloud/api), Geist + Geist Mono throughout, and built-in light/dark/system mode.
+    </p>
+
+    <p class="mt-3 text-[13px] text-zinc-500 dark:text-zinc-400">
+      Tap any card to open the page. Toggle the theme above — the choice persists across pages.
+    </p>
+
+    <ul class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <li>
+        <a href="index.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">01 · Home</span>
+            <span class="size-2 rounded-full bg-led-pink shadow-[0_0_8px_#ec4673]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Article list with floating logo</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Glowing logo centered on load, morphs into the navbar on scroll. Featured post + 7 latest.</p>
+        </a>
+      </li>
+      <li>
+        <a href="post.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">02 · Post</span>
+            <span class="size-2 rounded-full bg-led-yellow shadow-[0_0_8px_#f5c542]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Single article</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Reading column, sticky TOC with scrollspy, syntax-highlighted code blocks, prev/next.</p>
+        </a>
+      </li>
+      <li>
+        <a href="about.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">03 · About</span>
+            <span class="size-2 rounded-full bg-led-cyan shadow-[0_0_8px_#2dd4d4]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">About the author</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Sticky author card with stats, contact methods. Long-form bio on the right.</p>
+        </a>
+      </li>
+      <li>
+        <a href="archive.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">04 · Archive</span>
+            <span class="size-2 rounded-full bg-led-pink shadow-[0_0_8px_#ec4673]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Year-grouped archive</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Tag filter, year jump links, dense post-row layout. Per-tag pill color matches accent.</p>
+        </a>
+      </li>
+      <li>
+        <a href="search.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">05 · Search</span>
+            <span class="size-2 rounded-full bg-led-yellow shadow-[0_0_8px_#f5c542]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Full-text search</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">⌘K-style input, snippet results with highlighted matches, suggested tags.</p>
+        </a>
+      </li>
+      <li>
+        <a href="subscribe.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">06 · Subscribe</span>
+            <span class="size-2 rounded-full bg-led-cyan shadow-[0_0_8px_#2dd4d4]"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Subscribe / RSS hub</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Email digest hero, RSS / Atom / JSON Feed / Mastodon cards, per-tag feeds.</p>
+        </a>
+      </li>
+      <li>
+        <a href="404.html" class="group flex flex-col gap-3 rounded-2xl border border-zinc-950/10 p-5 transition hover:-translate-y-0.5 hover:border-zinc-950/20 dark:border-white/10 dark:hover:border-white/20">
+          <div class="flex items-baseline justify-between">
+            <span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">07 · 404</span>
+            <span class="size-2 rounded-full bg-zinc-400"></span>
+          </div>
+          <h2 class="font-display text-[1.05rem] font-semibold tracking-tight">Page not found</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Three LEDs, middle one burnt out. Recovery links to home + search + popular posts.</p>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Design system summary -->
+    <section class="mt-20 grid grid-cols-1 gap-12 border-t border-zinc-950/10 pt-12 md:grid-cols-3 dark:border-white/10">
+      <div>
+        <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Palette</p>
+        <div class="mt-3 flex gap-2">
+          <span class="grid h-12 flex-1 place-items-end rounded-md bg-led-pink p-1.5"><span class="font-mono text-[10px] text-white">#ec4673</span></span>
+          <span class="grid h-12 flex-1 place-items-end rounded-md bg-led-yellow p-1.5"><span class="font-mono text-[10px] text-zinc-900">#f5c542</span></span>
+          <span class="grid h-12 flex-1 place-items-end rounded-md bg-led-cyan p-1.5"><span class="font-mono text-[10px] text-zinc-900">#2dd4d4</span></span>
+        </div>
+        <p class="mt-3 text-[12px] text-zinc-500 dark:text-zinc-400">+ Tailwind <code class="font-mono text-[11px]">zinc</code> for neutrals</p>
+      </div>
+      <div>
+        <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Type</p>
+        <p class="mt-3 font-display text-[1.4rem] font-semibold leading-tight tracking-tight">Geist</p>
+        <p class="mt-1 font-mono text-[13px]">Geist Mono</p>
+        <p class="mt-3 text-[12px] text-zinc-500 dark:text-zinc-400">Display / body / mono. Self-host on the production build.</p>
+      </div>
+      <div>
+        <p class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">Stack</p>
+        <ul class="mt-3 flex flex-col gap-1.5 text-[13px]">
+          <li>Astro (SSG)</li>
+          <li>Tailwind CSS · Catalyst UI patterns</li>
+          <li><code class="font-mono">darkMode: 'class'</code></li>
+          <li>FOUC-free theme bootstrap</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

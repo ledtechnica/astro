@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — LED Technica</title>
+  <script>(function(){var t=localStorage.getItem('ledtechnica:theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        fontFamily: { sans:['Geist','ui-sans-serif','system-ui'], display:['Geist','ui-sans-serif','system-ui'], mono:['Geist Mono','ui-monospace','monospace'] },
+        colors: { led: { pink:'#ec4673', yellow:'#f5c542', cyan:'#2dd4d4' } },
+      } },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body class="h-full bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-white">
+  <div class="grain"></div>
+
+  <header data-navbar data-screen-label="03 About" class="fixed inset-x-0 top-0 z-40 border-b border-zinc-950/10 bg-white/75 backdrop-blur-md dark:bg-zinc-950/75 dark:border-white/10">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="grid size-9 place-items-center rounded-full bg-black ring-1 ring-zinc-950/10 dark:ring-white/10">
+            <img src="assets/led-technica-white.png" alt="" class="size-7 rounded-full object-contain" />
+          </span>
+          <span class="font-display text-[15px] font-semibold tracking-tight">LED Technica</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex items-center gap-1">
+            <li><a href="index.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Latest</a></li>
+            <li><a href="archive.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Archive</a></li>
+            <li><a href="about.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-950 dark:text-white">About</a></li>
+            <li><a href="subscribe.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Subscribe</a></li>
+            <li><a href="design-system.html" class="rounded-md px-2.5 py-1.5 text-sm/5 font-medium text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white">Design</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="flex items-center gap-2">
+        <div role="group" class="inline-flex items-center gap-0.5 rounded-full border border-zinc-950/10 bg-white p-0.5 dark:border-white/10 dark:bg-zinc-900">
+          <button data-theme-btn="light" aria-label="Light" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+          <button data-theme-btn="system" aria-label="System" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+          <button data-theme-btn="dark" aria-label="Dark" class="grid size-7 place-items-center rounded-full text-zinc-500 data-[active=true]:bg-zinc-950 data-[active=true]:text-white dark:text-zinc-400 dark:data-[active=true]:bg-white dark:data-[active=true]:text-zinc-900"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="size-3.5"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 mx-auto max-w-6xl px-6 pt-32 lg:px-8">
+    <header class="border-b border-zinc-950/10 pb-12 dark:border-white/10">
+      <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-led-cyan">About this site</span>
+      <h1 class="mt-4 font-display text-[clamp(2.2rem,4.5vw,3rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-balance max-w-3xl">
+        I'm Maya. I write about cloud, infra, and the boring tools that keep them running.
+      </h1>
+    </header>
+
+    <div class="mt-16 grid grid-cols-1 gap-16 lg:grid-cols-[280px_1fr]">
+      <!-- Sidebar card -->
+      <aside class="lg:sticky lg:top-24 self-start">
+        <div class="rounded-2xl border border-zinc-950/10 bg-zinc-50 p-6 dark:border-white/10 dark:bg-zinc-900/50">
+          <div class="size-20 rounded-full avatar-led"></div>
+          <p class="mt-4 font-display text-[1.05rem] font-semibold">Maya Ortiz</p>
+          <p class="text-[13px] text-zinc-500 dark:text-zinc-400">Staff SRE → independent</p>
+          <p class="mt-3 text-[13px] leading-relaxed text-zinc-600 dark:text-zinc-300">Berlin · Previously infra at Stripe, Vercel, and a YC fintech you've never heard of.</p>
+
+          <div class="mt-5 grid grid-cols-2 gap-3 border-t border-zinc-950/10 pt-5 dark:border-white/10">
+            <div>
+              <p class="font-display text-[1.5rem] font-semibold leading-none">128</p>
+              <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">posts</p>
+            </div>
+            <div>
+              <p class="font-display text-[1.5rem] font-semibold leading-none">3,400</p>
+              <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">subscribers</p>
+            </div>
+            <div>
+              <p class="font-display text-[1.5rem] font-semibold leading-none">2024</p>
+              <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">est.</p>
+            </div>
+            <div>
+              <p class="font-display text-[1.5rem] font-semibold leading-none">42</p>
+              <p class="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-zinc-500 dark:text-zinc-400">avg min/post</p>
+            </div>
+          </div>
+
+          <div class="mt-5 flex flex-col gap-2 border-t border-zinc-950/10 pt-5 dark:border-white/10">
+            <a href="mailto:maya@ledtechnica.dev" class="flex items-center gap-2 text-[13px] text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="size-4"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2"/></svg>
+              maya@ledtechnica.dev
+            </a>
+            <a href="#" class="flex items-center gap-2 text-[13px] text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="size-4"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+              github.com/maya
+            </a>
+            <a href="#" class="flex items-center gap-2 text-[13px] text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="size-4"><path d="M12 19c-7 0-9-4-9-7s2-7 9-7 9 4 9 7-2 7-9 7zM9 10v4M15 10v4M12 10v4"/></svg>
+              @maya@hachyderm.io
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Body -->
+      <div class="prose-led max-w-[640px] text-zinc-700 dark:text-zinc-300">
+        <p class="text-[1.18rem] text-zinc-600 dark:text-zinc-300">I started LED Technica in early 2024 because I was tired of bookmarking my own postmortems in a private wiki nobody else would ever see. The posts here are the ones I'd want to read — practical, opinionated, and short enough to finish on a transatlantic flight.</p>
+
+        <h2 id="what-this-is">What this is</h2>
+        <p>A blog about running real systems in the real cloud. Most posts fall into one of four buckets:</p>
+        <ul>
+          <li><strong>Postmortems and field notes</strong> from production incidents I've lived through.</li>
+          <li><strong>Tutorials</strong> on the boring parts of the stack — Postgres, nginx, systemd, TLS.</li>
+          <li><strong>Architecture notes</strong> on choices that worked and choices I'd undo.</li>
+          <li><strong>Opinions,</strong> usually about complexity.</li>
+        </ul>
+
+        <h2 id="what-this-isnt">What this isn't</h2>
+        <p>I don't write hot takes on the company-of-the-week. I don't write LLM coding listicles. I don't write thinkpieces about the future of work. There are better people than me writing those, and the world has enough of them.</p>
+
+        <h2 id="how-its-built">How it's built</h2>
+        <p>The site is statically generated with <a href="https://astro.build" target="_blank" rel="noreferrer">Astro</a>, served from a single $6 VM behind Cloudflare. Type set in <strong>Geist</strong> and <strong>Geist Mono</strong>. UI components from <strong>Tailwind Catalyst</strong>, recolored with the three LEDs from the logo. The whole thing is open source — see the link in the sidebar.</p>
+
+        <h2 id="contact">Get in touch</h2>
+        <p>Email is best. I read everything; I reply to most. If you'd like me to speak at your team meeting or write for your publication, mention "speaking" or "writing" in the subject line so I can find it later.</p>
+      </div>
+    </div>
+
+    <footer class="mt-24 border-t border-zinc-950/10 py-10 text-center font-mono text-[11px] uppercase tracking-[0.06em] text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+      © 2026 LED Technica · <a href="pages.html" class="hover:text-zinc-950 dark:hover:text-white">All page designs →</a>
+    </footer>
+  </main>
+
+  <script src="shared.js"></script>
+</body>
+</html>

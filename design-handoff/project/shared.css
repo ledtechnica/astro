@@ -1,0 +1,189 @@
+/* ============================================================
+   LED Technica — additions on top of Tailwind + Catalyst patterns
+   Only things Tailwind can't express cleanly live here.
+   ============================================================ */
+
+/* Background grain — fixed, subtle paper texture */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, currentColor 0.6px, transparent 0);
+  background-size: 4px 4px;
+  opacity: .035;
+  color: #14110d;
+}
+.dark .grain::before { color: #ffffff; opacity: .025; }
+
+/* ----- Glowing logo halo + spinning conic ring ----- */
+/* Default: powered on, full color. Hover: LED light bloom + halo. */
+.logo-floater {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 168px;
+  height: 168px;
+  margin: -84px 0 0 -84px;
+  border-radius: 9999px;
+  background: #0a0a0a;
+  display: grid;
+  place-items: center;
+  z-index: 60;
+  cursor: pointer;
+  will-change: width, height, top, left;
+  /* resting state: subtle ambient lift, no bloom */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 6px 18px rgba(0,0,0,.25);
+  transition: box-shadow .5s cubic-bezier(.22,.61,.36,1), transform .25s ease;
+}
+.logo-floater::after {
+  /* (no halo element — box-shadow handles the glow so it can't bleed onto the disc) */
+  content: none;
+}
+.logo-floater.is-lit,
+.logo-floater:hover {
+  /* hover: yellow halo only, drawn strictly outside the disc */
+  box-shadow:
+    0 0 0 2px rgba(245,197,66,.55),
+    0 0 18px 4px rgba(245,197,66,.65),
+    0 0 50px 12px rgba(245,197,66,.45),
+    0 0 100px 24px rgba(245,197,66,.25);
+}
+.logo-floater img {
+  width: 78%; height: 78%;
+  object-fit: contain;
+  display: block;
+  /* Default: punch up the LED colors so they really pop */
+  filter: saturate(1.35) contrast(1.08) brightness(1.05);
+  transition: filter .45s ease;
+}
+/* Hover: do NOT touch the logo image itself. Only the surrounding
+   halo + box-shadows below produce the glow effect. */
+.logo-floater[data-mode="pinned"] img {
+  width: 84%; height: 84%;
+}
+/* When pinned in navbar: small, clean, no halo */
+.logo-floater[data-mode="pinned"] {
+  cursor: default;
+  box-shadow: 0 0 0 1px rgba(20,17,13,.10), 0 2px 6px rgba(0,0,0,.15);
+}
+.dark .logo-floater[data-mode="pinned"] {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.10), 0 2px 6px rgba(0,0,0,.4);
+}
+.logo-floater[data-mode="pinned"]::after { opacity: 0; animation: none; }
+
+/* ----- Hero ground halo ----- */
+.hero-halo::before {
+  content: "";
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(236,70,115,.18), transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+/* ----- Prose tweaks ----- */
+.prose-led { font-size: 1.075rem; line-height: 1.78; }
+.prose-led h2 { font-family: 'Geist', sans-serif; font-weight: 600; font-size: 1.55rem; letter-spacing: -0.025em; margin: 2em 0 0.4em; color: var(--prose-h, inherit); }
+.prose-led h3 { font-family: 'Geist', sans-serif; font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; margin: 1.6em 0 0.3em; }
+.prose-led p + p,
+.prose-led p + ul,
+.prose-led p + ol,
+.prose-led p + pre,
+.prose-led p + blockquote { margin-top: 1.1em; }
+.prose-led ul, .prose-led ol { padding-left: 1.3em; }
+.prose-led li + li { margin-top: 0.4em; }
+.prose-led blockquote {
+  border-left: 3px solid #2dd4d4;
+  padding: 6px 0 6px 22px;
+  font-style: italic;
+  font-size: 1.12rem;
+  margin: 1.4em 0;
+}
+.prose-led :not(pre) > code {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.88em;
+  background: rgb(244 244 245);
+  border: 1px solid rgb(228 228 231 / .7);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.dark .prose-led :not(pre) > code {
+  background: rgb(39 39 42 / .6);
+  border-color: rgb(63 63 70 / .6);
+}
+.prose-led pre {
+  background: #0a0a0e;
+  color: #e6e3d8;
+  padding: 22px 24px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  margin: 1.4em 0;
+  position: relative;
+  border: 1px solid rgb(63 63 70 / .4);
+}
+.prose-led pre::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  font-family: 'Geist Mono', monospace;
+}
+.tok-k { color: #ec4673; }
+.tok-s { color: #f5c542; }
+.tok-c { color: #6f6a5d; font-style: italic; }
+.tok-f { color: #2dd4d4; }
+.tok-n { color: #e6e3d8; }
+.tok-p { color: #a39b87; }
+
+/* ----- Headline link underline animation ----- */
+.headline-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .35s cubic-bezier(.22,.61,.36,1);
+  text-decoration: none;
+}
+.headline-link:hover { background-size: 100% 1.5px; }
+
+/* ----- Avatar gradient ----- */
+.avatar-led {
+  background: linear-gradient(135deg, #ec4673, #f5c542 55%, #2dd4d4);
+}
+
+/* ----- 404 gradient text ----- */
+.gradient-text {
+  background: linear-gradient(135deg, #ec4673, #f5c542, #2dd4d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ----- Subscribe radial backdrop ----- */
+.subscribe-glow {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(45,212,212,.10), transparent 50%),
+    radial-gradient(circle at 15% 90%, rgba(236,70,115,.10), transparent 50%);
+}
+.dark .subscribe-glow {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(45,212,212,.18), transparent 50%),
+    radial-gradient(circle at 15% 90%, rgba(236,70,115,.18), transparent 50%);
+}
+
+/* ----- Catalyst-y focus rings (utility for raw inputs) ----- */
+.cat-focus:focus { outline: 2px solid transparent; outline-offset: 2px; box-shadow: 0 0 0 2px #2dd4d4; }
