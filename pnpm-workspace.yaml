@@ -1,0 +1,12 @@
+# pnpm 11+ reads install-time settings from this file instead of
+# package.json#pnpm.* (which is silently ignored in v11). The
+# packages: key is intentionally omitted — this is a single-package
+# repo; we use this file purely to hold the build-script allow-list.
+#
+# esbuild + sharp are required at install time:
+#   - esbuild — used by Vite/Astro for bundling
+#   - sharp   — used by Astro's <Image> component for optimization
+
+allowBuilds:
+  esbuild: true
+  sharp: true
